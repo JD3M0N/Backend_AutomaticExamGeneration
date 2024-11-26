@@ -1,0 +1,11 @@
+E:\University\3ro\IS\AEG\AEG\Domain\bin\Debug\net8.0\Domain.deps.json
+E:\University\3ro\IS\AEG\AEG\Domain\bin\Debug\net8.0\Domain.dll
+E:\University\3ro\IS\AEG\AEG\Domain\bin\Debug\net8.0\Domain.pdb
+E:\University\3ro\IS\AEG\AEG\Domain\obj\Debug\net8.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+E:\University\3ro\IS\AEG\AEG\Domain\obj\Debug\net8.0\Domain.AssemblyInfoInputs.cache
+E:\University\3ro\IS\AEG\AEG\Domain\obj\Debug\net8.0\Domain.AssemblyInfo.cs
+E:\University\3ro\IS\AEG\AEG\Domain\obj\Debug\net8.0\Domain.csproj.CoreCompileInputs.cache
+E:\University\3ro\IS\AEG\AEG\Domain\obj\Debug\net8.0\Domain.dll
+E:\University\3ro\IS\AEG\AEG\Domain\obj\Debug\net8.0\refint\Domain.dll
+E:\University\3ro\IS\AEG\AEG\Domain\obj\Debug\net8.0\Domain.pdb
+E:\University\3ro\IS\AEG\AEG\Domain\obj\Debug\net8.0\ref\Domain.dll

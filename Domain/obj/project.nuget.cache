@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "X+61tkVNGmU=",
+  "success": true,
+  "projectFilePath": "E:\\University\\3ro\\IS\\AEG\\AEG\\Domain\\Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Josue\\.nuget\\packages\\microsoft.net.sdk.compilers.toolset\\9.0.100\\microsoft.net.sdk.compilers.toolset.9.0.100.nupkg.sha512",
+    "C:\\Users\\Josue\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.11\\microsoft.windowsdesktop.app.ref.8.0.11.nupkg.sha512",
+    "C:\\Users\\Josue\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.11\\microsoft.netcore.app.ref.8.0.11.nupkg.sha512",
+    "C:\\Users\\Josue\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.11\\microsoft.aspnetcore.app.ref.8.0.11.nupkg.sha512"
+  ],
+  "logs": []
+}
