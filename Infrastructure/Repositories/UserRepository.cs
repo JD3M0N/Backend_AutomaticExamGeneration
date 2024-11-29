@@ -15,26 +15,21 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<User> GetUserByEmailAsync(string email)
-        {
-            return await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
-        }
-
-        public async Task<IEnumerable<User>> GetAllUsersAsync()
-        {
-            return await _context.Users.ToListAsync();
-        }
-
         public async Task AddUserAsync(User user)
         {
-            if (string.IsNullOrEmpty(user.Rol))
-            {
-                user.Rol = "student"; // Default role
-            }
-
-            await _context.Users.AddAsync(user);
+            await _context.User.AddAsync(user);
             await _context.SaveChangesAsync();
         }
 
+        public async Task ClearUsersAsync()
+        {
+            _context.User.RemoveRange(_context.User);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<User>> GetAllUsersAsync() 
+        {
+            return await _context.User.ToListAsync();
+        }
     }
 }
