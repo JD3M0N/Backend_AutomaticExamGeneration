@@ -3,20 +3,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entities
 {
-    public class User
+    public class Admin
     {
         [Key]
         [Column("ID")]
         public int Id { get; set; }
-        [Column("UName")]
+        [Column("AdminName")]
         public string Name { get; set; }
-        [Column("LastName")]
-        public string LastName { get; set; }
         [Column("Email")]
         public string Email { get; set; }
         [Column("password")]
         public string Password { get; set; }
-        [Column("rol")]
-        public string Rol { get; set; }
+
     }
 }

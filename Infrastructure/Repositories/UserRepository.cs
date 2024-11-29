@@ -20,9 +20,21 @@ namespace Infrastructure.Repositories
             return await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task<IEnumerable<User>> GetAllUsersAsync() 
+        public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
             return await _context.Users.ToListAsync();
         }
+
+        public async Task AddUserAsync(User user)
+        {
+            if (string.IsNullOrEmpty(user.Rol))
+            {
+                user.Rol = "student"; // Default role
+            }
+
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }

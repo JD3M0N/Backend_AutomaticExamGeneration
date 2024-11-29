@@ -7,6 +7,7 @@ namespace Infrastructure.Interfaces
     public interface IUserRepository
     {
         Task<User> GetUserByEmailAsync(string email);
-        Task<IEnumerable<User>> GetAllUsersAsync(); 
+        Task<IEnumerable<User>> GetAllUsersAsync();
+        Task AddUserAsync(User user); 
     }
 }
