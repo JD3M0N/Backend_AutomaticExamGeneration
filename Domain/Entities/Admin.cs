@@ -6,13 +6,13 @@ namespace Domain.Entities
     public class Admin
     {
         [Key]
-        [Column("ID")]
+        [Column("Admin_ID")]
         public int Id { get; set; }
-        [Column("AdminName")]
+        [Column("Admin_Name")]
         public string Name { get; set; }
-        [Column("Email")]
+        [Column("Admin_Email")]
         public string Email { get; set; }
-        [Column("password")]
+        [Column("Admin_Password")]
         public string Password { get; set; }
 
     }
