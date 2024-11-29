@@ -31,7 +31,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 // Add services
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
