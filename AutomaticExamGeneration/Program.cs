@@ -27,11 +27,13 @@ builder.Services.AddCors(options => {
 // Add repositories
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IProfessorRepository, ProfessorRepository>();
 
 // Add services
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IProfessorService, ProfessorService>();
 
 var app = builder.Build();
 
