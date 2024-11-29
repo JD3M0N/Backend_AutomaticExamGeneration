@@ -28,6 +28,13 @@ namespace WebAPI.Controllers
             var user = await _userService.AddUserAsync(request.Name, request.LastName, request.Email, request.Password, request.Rol);
             return Ok(user);
         }
+
+        [HttpDelete("clear")]
+        public async Task<IActionResult> ClearUsers()
+        {
+            await _userService.ClearUsersAsync();
+            return NoContent();
+        }
     }
 
     public class AddUserRequest
@@ -36,6 +43,6 @@ namespace WebAPI.Controllers
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string Rol { get; set; } 
+        public string Rol { get; set; }
     }
 }

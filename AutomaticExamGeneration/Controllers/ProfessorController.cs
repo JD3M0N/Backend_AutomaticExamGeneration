@@ -1,4 +1,4 @@
-﻿using Application.Services;
+﻿using Application.Interfaces; 
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -22,6 +22,13 @@ namespace WebAPI.Controllers
         {
             var professors = await _professorService.GetAllProfessorsAsync();
             return Ok(professors);
+        }
+
+        [HttpDelete("clear")]
+        public async Task<IActionResult> ClearProfessors()
+        {
+            await _professorService.ClearProfessorsAsync();
+            return NoContent();
         }
     }
 }

@@ -21,5 +21,12 @@ namespace Web.Controllers
             var students = await _studentService.GetStudentsAsync();
             return Ok(students);
         }
+
+        [HttpDelete("clear")]
+        public async Task<IActionResult> ClearStudents()
+        {
+            await _studentService.ClearStudentsAsync();
+            return NoContent();
+        }
     }
 }
