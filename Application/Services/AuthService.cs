@@ -17,15 +17,18 @@ namespace Application.Services
 
         public async Task<bool> ValidateUserAsync(string email, string password)
         {
-            var user = await _userRepository.GetUserByEmailAsync(email);
-            if (user == null || user.Password != password)
+            var users = await _userRepository.GetAllUsersAsync();
+            foreach (var user in users)
             {
-                return false;
+                if (user.Email == email && user.Password == password)
+                {
+                    return true;
+                }
             }
-            return true;
+            return false;
         }
 
-        public async Task<IEnumerable<User>> GetAllUsersAsync() 
+        public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
             return await _userRepository.GetAllUsersAsync();
         }

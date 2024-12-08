@@ -19,5 +19,15 @@ namespace Application.Services
         {
             return await _studentRepository.GetStudentsAsync();
         }
+
+        public async Task AddStudentAsync(Student student)
+        {
+            await _studentRepository.AddStudentAsync(student);
+        }
+
+        public async Task ClearStudentsAsync()
+        {
+            await _studentRepository.ClearStudentsAsync();
+        }
     }
 }
