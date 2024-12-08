@@ -18,22 +18,22 @@ namespace Web.Controllers
             _authService = authService;
         }
 
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
-        {
-            var isValidUser = await _authService.ValidateUserAsync(loginRequest.Email, loginRequest.Password);
-            if (!isValidUser)
-            {
-                return Unauthorized(new { message = "Invalid credentials" });
-            }
-            return Ok(new { message = "User is valid" });
-        }
+        //[HttpPost("login")]
+        //public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
+        //{
+        //    var isValidUser = await _authService.ValidateUserAsync(loginRequest.Email, loginRequest.Password);
+        //    if (!isValidUser)
+        //    {
+        //        return Unauthorized(new { message = "Invalid credentials" });
+        //    }
+        //    return Ok(new { message = "User is valid" });
+        //}
 
-        [HttpGet("users")] // Add this endpoint
-        public async Task<IActionResult> GetAllUsers()
-        {
-            var users = await _authService.GetAllUsersAsync();
-            return Ok(users);
-        }
+        //[HttpGet("users")] // Add this endpoint
+        //public async Task<IActionResult> GetAllUsers()
+        //{
+        //    var users = await _authService.GetAllUsersAsync();
+        //    return Ok(users);
+        //}
     }
 }

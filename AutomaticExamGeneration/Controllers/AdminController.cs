@@ -14,17 +14,17 @@ public class AdminController : ControllerBase
         _adminService = adminService;
     }
 
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Admin>>> GetAllAdmins()
-    {
-        var admins = await _adminService.GetAllAdminsAsync();
-        return Ok(admins);
-    }
+    //[HttpGet]
+    //public async Task<ActionResult<IEnumerable<Admin>>> GetAllAdmins()
+    //{
+    //    var admins = await _adminService.GetAllAdminsAsync();
+    //    return Ok(admins);
+    //}
 
-    [HttpDelete]
-    public async Task<IActionResult> ClearAdmins()
-    {
-        await _adminService.ClearAdminsAsync();
-        return NoContent();
-    }
+    //[HttpDelete]
+    //public async Task<IActionResult> ClearAdmins()
+    //{
+    //    await _adminService.ClearAdminsAsync();
+    //    return NoContent();
+    //}
 }

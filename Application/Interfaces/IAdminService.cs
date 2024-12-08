@@ -2,6 +2,6 @@
 
 public interface IAdminService
 {
-    Task<IEnumerable<Admin>> GetAllAdminsAsync();
-    Task ClearAdminsAsync();
+    //Task<IEnumerable<Admin>> GetAllAdminsAsync();
+    //Task ClearAdminsAsync();
 }

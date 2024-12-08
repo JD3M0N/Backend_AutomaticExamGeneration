@@ -22,19 +22,19 @@ namespace Infrastructure.Repositories
 
         public async Task AddStudentAsync(Student student)
         {
-
-            // Ensure the student ID is not set manually
-            student.Id = 0;
-
-            //var existingStudent = await _context.Student.FindAsync(student.Id);
-            //if (existingStudent != null)
-            //{
-            //    _context.Entry(existingStudent).State = EntityState.Detached;
-            //}
-
-            await _context.Student.AddAsync(student);
+            var existingStudent = await _context.Student.AsNoTracking().FirstOrDefaultAsync(s => s.Id == student.Id);
+            if (existingStudent == null)
+            {
+                await _context.Student.AddAsync(student);
+            }
+            else
+            {
+                _context.Entry(student).State = EntityState.Modified;
+            }
             await _context.SaveChangesAsync();
         }
+
+
 
 
         public async Task ClearStudentsAsync()

@@ -15,24 +15,24 @@ namespace Application.Services
             _professorRepository = professorRepository;
         }
 
-        public async Task<IEnumerable<Professor>> GetAllProfessorsAsync()
-        {
-            return await _professorRepository.GetAllProfessorsAsync();
-        }
+        //public async Task<IEnumerable<Professor>> GetAllProfessorsAsync()
+        //{
+        //    return await _professorRepository.GetAllProfessorsAsync();
+        //}
 
         public async Task AddProfessorAsync(Professor professor)
         {
             await _professorRepository.AddProfessorAsync(professor);
         }
 
-        public async Task DeleteProfessorAsync(Professor professor)
-        {
-            await _professorRepository.DeleteProfessorAsync(professor);
-        }
+        //public async Task DeleteProfessorAsync(Professor professor)
+        //{
+        //    await _professorRepository.DeleteProfessorAsync(professor);
+        //}
 
-        public async Task ClearProfessorsAsync()
-        {
-            await _professorRepository.ClearProfessorsAsync();
-        }
+        //public async Task ClearProfessorsAsync()
+        //{
+        //    await _professorRepository.ClearProfessorsAsync();
+        //}
     }
 }

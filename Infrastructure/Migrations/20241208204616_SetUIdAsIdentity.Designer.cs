@@ -3,6 +3,7 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241208204616_SetUIdAsIdentity")]
+    partial class SetUIdAsIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,7 +64,7 @@ namespace Infrastructure.Migrations
                 {
                     b.HasBaseType("Domain.Entities.User");
 
-                    b.ToTable("Admin");
+                    b.ToTable("Admin", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Professor", b =>
@@ -73,7 +76,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Speciality");
 
-                    b.ToTable("Professor");
+                    b.ToTable("Professor", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Student", b =>
@@ -82,11 +85,11 @@ namespace Infrastructure.Migrations
 
                     b.Property<int>("Age")
                         .HasColumnType("int")
-                        .HasColumnName("E_Age");
+                        .HasColumnName("St_Age");
 
                     b.Property<int>("Grade")
                         .HasColumnType("int")
-                        .HasColumnName("Course");
+                        .HasColumnName("St_Grade");
 
                     b.ToTable("Student", (string)null);
                 });

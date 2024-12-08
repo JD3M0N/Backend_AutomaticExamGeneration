@@ -15,10 +15,10 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Professor>> GetAllProfessorsAsync()
-        {
-            return await _context.Professor.ToListAsync();
-        }
+        //public async Task<IEnumerable<Professor>> GetAllProfessorsAsync()
+        //{
+        //    return await _context.Professor.ToListAsync();
+        //}
 
         public async Task AddProfessorAsync(Professor professor)
         {
@@ -26,16 +26,16 @@ namespace Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteProfessorAsync(Professor professor)
-        {
-            _context.Professor.Remove(professor);
-            await _context.SaveChangesAsync();
-        }
+        //public async Task DeleteProfessorAsync(Professor professor)
+        //{
+        //    _context.Professor.Remove(professor);
+        //    await _context.SaveChangesAsync();
+        //}
 
-        public async Task ClearProfessorsAsync()
-        {
-            _context.Professor.RemoveRange(_context.Professor);
-            await _context.SaveChangesAsync();
-        }
+        //public async Task ClearProfessorsAsync()
+        //{
+        //    _context.Professor.RemoveRange(_context.Professor);
+        //    await _context.SaveChangesAsync();
+        //}
     }
 }

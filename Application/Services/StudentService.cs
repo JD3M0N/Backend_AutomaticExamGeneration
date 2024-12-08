@@ -15,19 +15,19 @@ namespace Application.Services
             _studentRepository = studentRepository;
         }
 
-        public async Task<IEnumerable<Student>> GetStudentsAsync()
-        {
-            return await _studentRepository.GetStudentsAsync();
-        }
+        //public async Task<IEnumerable<Student>> GetStudentsAsync()
+        //{
+        //    return await _studentRepository.GetStudentsAsync();
+        //}
 
-        public async Task AddStudentAsync(Student student)
-        {
-            await _studentRepository.AddStudentAsync(student);
-        }
+        //public async Task AddStudentAsync(Student student)
+        //{
+        //    await _studentRepository.AddStudentAsync(student);
+        //}
 
-        public async Task ClearStudentsAsync()
-        {
-            await _studentRepository.ClearStudentsAsync();
-        }
+        //public async Task ClearStudentsAsync()
+        //{
+        //    await _studentRepository.ClearStudentsAsync();
+        //}
     }
 }

@@ -3,7 +3,7 @@ using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace WebAPI.Controllers
+namespace Web.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -16,24 +16,23 @@ namespace WebAPI.Controllers
             _userService = userService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddUser([FromBody] AddUserRequest request)
+        [HttpPost("addUser")]
+        public async Task<IActionResult> AddUser([FromBody] AddUserRequest addUserRequest)
         {
-            if (request == null || string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password) ||
-                string.IsNullOrEmpty(request.Name) || string.IsNullOrEmpty(request.LastName) || string.IsNullOrEmpty(request.Rol))
+            if (addUserRequest == null)
             {
                 return BadRequest("Invalid user data.");
             }
 
-            var user = await _userService.AddUserAsync(request.Name, request.LastName, request.Email, request.Password, request.Rol);
-            return Ok(user);
-        }
+            var user = await _userService.AddUserAsync(
+                addUserRequest.Name,
+                addUserRequest.LastName,
+                addUserRequest.Email,
+                addUserRequest.Rol,
+                addUserRequest.Password
+            );
 
-        [HttpDelete("clear")]
-        public async Task<IActionResult> ClearUsers()
-        {
-            await _userService.ClearUsersAsync();
-            return NoContent();
+            return Ok(user);
         }
     }
 
@@ -42,7 +41,7 @@ namespace WebAPI.Controllers
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
         public string Rol { get; set; }
+        public string Password { get; set; }
     }
 }

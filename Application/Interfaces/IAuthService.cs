@@ -6,7 +6,7 @@ namespace Application.Interfaces
 {
     public interface IAuthService
     {
-        Task<bool> ValidateUserAsync(string email, string password);
-        Task<IEnumerable<User>> GetAllUsersAsync(); 
+        //Task<bool> ValidateUserAsync(string email, string password);
+        //Task<IEnumerable<User>> GetAllUsersAsync(); 
     }
 }

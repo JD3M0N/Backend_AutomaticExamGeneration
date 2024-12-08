@@ -1,7 +1,6 @@
 ﻿using Domain.Entities;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
@@ -25,11 +24,6 @@ namespace Infrastructure.Repositories
         {
             _context.User.RemoveRange(_context.User);
             await _context.SaveChangesAsync();
-        }
-
-        public async Task<IEnumerable<User>> GetAllUsersAsync() 
-        {
-            return await _context.User.ToListAsync();
         }
     }
 }

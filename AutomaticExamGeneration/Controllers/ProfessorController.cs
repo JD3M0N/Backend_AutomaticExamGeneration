@@ -17,18 +17,18 @@ namespace WebAPI.Controllers
             _professorService = professorService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Professor>>> GetAllProfessors()
-        {
-            var professors = await _professorService.GetAllProfessorsAsync();
-            return Ok(professors);
-        }
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Professor>>> GetAllProfessors()
+        //{
+        //    var professors = await _professorService.GetAllProfessorsAsync();
+        //    return Ok(professors);
+        //}
 
-        [HttpDelete("clear")]
-        public async Task<IActionResult> ClearProfessors()
-        {
-            await _professorService.ClearProfessorsAsync();
-            return NoContent();
-        }
+        //[HttpDelete("clear")]
+        //public async Task<IActionResult> ClearProfessors()
+        //{
+        //    await _professorService.ClearProfessorsAsync();
+        //    return NoContent();
+        //}
     }
 }

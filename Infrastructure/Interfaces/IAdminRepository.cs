@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-public interface IAdminRepository
+namespace Infrastructure.Interfaces
 {
-    Task<IEnumerable<Admin>> GetAllAdminsAsync();
-    Task ClearAdminsAsync();
+    public interface IAdminRepository
+    {
+        Task AddAdminAsync(Admin admin);
+        //Task<IEnumerable<Admin>> GetAllAdminsAsync();
+        //Task ClearAdminsAsync();
+    }
 }

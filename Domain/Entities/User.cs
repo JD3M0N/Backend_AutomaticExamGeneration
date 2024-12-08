@@ -7,22 +7,19 @@ namespace Domain.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("ID")]
+        [Column("U_ID")]
         public int Id { get; set; }
 
-        [Column("UName")]
+        [Column("U_Name")]
         public string Name { get; set; }
 
-        [Column("LastName")]
-        public string LastName { get; set; }
-
-        [Column("Email")]
+        [Column("Gmail")]
         public string Email { get; set; }
 
-        [Column("password")]
-        public string Password { get; set; }
-
-        [Column("rol")]
+        [Column("Rol")]
         public string Rol { get; set; }
+
+        [Column("Password")]
+        public string Password { get; set; }
     }
 }

@@ -10,20 +10,26 @@ namespace Application.Services
         private readonly IUserRepository _userRepository;
         private readonly IProfessorRepository _professorRepository;
         private readonly IStudentRepository _studentRepository;
+        private readonly IAdminRepository _adminRepository;
 
-        public UserService(IUserRepository userRepository, IProfessorRepository professorRepository, IStudentRepository studentRepository)
+        public UserService(IUserRepository userRepository, IProfessorRepository professorRepository, IStudentRepository studentRepository, IAdminRepository adminRepository)
         {
             _userRepository = userRepository;
             _professorRepository = professorRepository;
             _studentRepository = studentRepository;
+            _adminRepository = adminRepository;
         }
 
-        public async Task<User> AddUserAsync(string name, string lastName, string email, string password, string rol)
+        public async Task<User> AddUserAsync(string name, string lastName, string email, string rol, string password)
         {
+            if (rol != "Admin" && rol != "Professor" && rol != "Student")
+            {
+                throw new ArgumentException("Invalid role specified.");
+            }
+
             var user = new User
             {
                 Name = name,
-                LastName = lastName,
                 Email = email,
                 Password = password,
                 Rol = rol
@@ -46,13 +52,27 @@ namespace Application.Services
                 var student = new Student
                 {
                     Id = user.Id,
-                    Name = $"{name} {lastName}"
+                    Name = $"{name} {lastName}",
+                    Age = 0, // Default value, you can change it as needed
+                    Grade = 0 // Default value, you can change it as needed
                 };
                 await _studentRepository.AddStudentAsync(student);
+            }
+            else if (rol == "Admin")
+            {
+                var admin = new Admin
+                {
+                    Id = user.Id,
+                    Name = $"{name} {lastName}",
+                    Email = email,
+                    Password = password
+                };
+                await _adminRepository.AddAdminAsync(admin);
             }
 
             return user;
         }
+
 
         public async Task ClearUsersAsync()
         {
