@@ -14,6 +14,7 @@ namespace Infrastructure
         public DbSet<Admin> Admin { get; set; }
         public DbSet<Professor> Professor { get; set; }
         public DbSet<Student> Student { get; set; }
+        public DbSet<Topic> Topic { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,6 +39,10 @@ namespace Infrastructure
             modelBuilder.Entity<Student>()
                 .Property(s => s.Grade)
                 .HasColumnName("Course");
+
+            // Configurar la tabla para Topic
+            modelBuilder.Entity<Topic>()
+                .ToTable("Topic");
 
             // Configurar Admin y Professor de manera similar si es necesario
         }
