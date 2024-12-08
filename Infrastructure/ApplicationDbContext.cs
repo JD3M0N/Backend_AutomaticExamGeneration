@@ -15,6 +15,7 @@ namespace Infrastructure
         public DbSet<Professor> Professor { get; set; }
         public DbSet<Student> Student { get; set; }
         public DbSet<Topic> Topic { get; set; }
+        public DbSet<Question> Questions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,6 +44,16 @@ namespace Infrastructure
             // Configurar la tabla para Topic
             modelBuilder.Entity<Topic>()
                 .ToTable("Topic");
+
+            // Configurar la tabla para Question
+            modelBuilder.Entity<Question>()
+                .ToTable("Question");
+
+            // Configurar la relación entre Question y Topic
+            modelBuilder.Entity<Question>()
+                .HasOne(q => q.Topic)
+                .WithMany(t => t.Questions)
+                .HasForeignKey(q => q.TopicId);
 
             // Configurar Admin y Professor de manera similar si es necesario
         }
