@@ -63,7 +63,7 @@ namespace Infrastructure
             // Configurar la relación entre Exam y Professor
             modelBuilder.Entity<Exam>()
                 .HasOne(e => e.Professor)
-                .WithMany()
+                .WithMany(p => p.Exams)
                 .HasForeignKey(e => e.ProfessorId);
         }
     }
