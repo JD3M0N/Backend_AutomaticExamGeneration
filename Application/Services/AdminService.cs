@@ -4,22 +4,41 @@ using Infrastructure.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-public class AdminService : IAdminService
+namespace Application.Services
 {
-    private readonly IAdminRepository _adminRepository;
-
-    public AdminService(IAdminRepository adminRepository)
+    public class AdminService : IAdminService
     {
-        _adminRepository = adminRepository;
+        private readonly IAdminRepository _adminRepository;
+
+        public AdminService(IAdminRepository adminRepository)
+        {
+            _adminRepository = adminRepository;
+        }
+
+        public async Task<IEnumerable<Admin>> GetAdminsAsync()
+        {
+            return await _adminRepository.GetAdminsAsync();
+        }
+
+        public async Task AddAdminAsync(Admin admin)
+        {
+            var existingAdmin = await _adminRepository.GetAdminByIdAsync(admin.Id);
+            if (existingAdmin != null)
+            {
+                throw new InvalidOperationException("An admin with the same ID already exists.");
+            }
+
+            await _adminRepository.AddAdminAsync(admin);
+        }
+
+        public async Task UpdateAdminAsync(Admin admin)
+        {
+            await _adminRepository.UpdateAdminAsync(admin);
+        }
+
+        public async Task DeleteAdminAsync(int id)
+        {
+            await _adminRepository.DeleteAdminAsync(id);
+        }
     }
-
-    //public async Task<IEnumerable<Admin>> GetAllAdminsAsync()
-    //{
-    //    return await _adminRepository.GetAllAdminsAsync();
-    //}
-
-    //public async Task ClearAdminsAsync()
-    //{
-    //    await _adminRepository.ClearAdminsAsync();
-    //}
 }

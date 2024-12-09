@@ -3,8 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entities
 {
-    public class Admin : User
+    public class Admin
     {
-        // No additional properties needed
+        [Key]
+        [Column("U_ID")]
+        public int Id { get; set; }
     }
 }

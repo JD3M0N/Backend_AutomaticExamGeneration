@@ -1,7 +1,14 @@
 ﻿using Domain.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-public interface IAdminService
+namespace Application.Interfaces
 {
-    //Task<IEnumerable<Admin>> GetAllAdminsAsync();
-    //Task ClearAdminsAsync();
+    public interface IAdminService
+    {
+        Task<IEnumerable<Admin>> GetAdminsAsync();
+        Task AddAdminAsync(Admin admin);
+        Task UpdateAdminAsync(Admin admin);
+        Task DeleteAdminAsync(int id);
+    }
 }

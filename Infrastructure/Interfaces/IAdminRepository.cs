@@ -6,8 +6,10 @@ namespace Infrastructure.Interfaces
 {
     public interface IAdminRepository
     {
+        Task<IEnumerable<Admin>> GetAdminsAsync();
+        Task<Admin> GetAdminByIdAsync(int id);
         Task AddAdminAsync(Admin admin);
-        //Task<IEnumerable<Admin>> GetAllAdminsAsync();
-        //Task ClearAdminsAsync();
+        Task UpdateAdminAsync(Admin admin);
+        Task DeleteAdminAsync(int id);
     }
 }

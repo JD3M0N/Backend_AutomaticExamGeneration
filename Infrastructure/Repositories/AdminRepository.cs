@@ -15,21 +15,36 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
+        public async Task<IEnumerable<Admin>> GetAdminsAsync()
+        {
+            return await _context.Admin.ToListAsync();
+        }
+
+        public async Task<Admin> GetAdminByIdAsync(int id)
+        {
+            return await _context.Admin.FindAsync(id);
+        }
+
         public async Task AddAdminAsync(Admin admin)
         {
             await _context.Admin.AddAsync(admin);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Admin>> GetAllAdminsAsync()
+        public async Task UpdateAdminAsync(Admin admin)
         {
-            return await _context.Admin.ToListAsync();
+            _context.Admin.Update(admin);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task ClearAdminsAsync()
+        public async Task DeleteAdminAsync(int id)
         {
-            _context.Admin.RemoveRange(_context.Admin);
-            await _context.SaveChangesAsync();
+            var admin = await _context.Admin.FindAsync(id);
+            if (admin != null)
+            {
+                _context.Admin.Remove(admin);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }
