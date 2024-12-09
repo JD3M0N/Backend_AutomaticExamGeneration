@@ -3,12 +3,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entities
 {
-    public class Student : User
+    public class Student
     {
+        [Key]
+        [Column("U_ID")]
+        public int Id { get; set; }
+
         [Column("E_Age")]
         public int Age { get; set; }
 
         [Column("Course")]
-        public int Grade { get; set; }
+        public string Grade { get; set; }
     }
 }

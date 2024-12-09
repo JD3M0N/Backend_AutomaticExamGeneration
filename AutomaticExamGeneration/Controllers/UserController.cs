@@ -34,6 +34,13 @@ namespace Web.Controllers
 
             return Ok(user);
         }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
+        {
+            var users = await _userService.GetAllUsersAsync();
+            return Ok(users);
+        }
     }
 
     public class AddUserRequest

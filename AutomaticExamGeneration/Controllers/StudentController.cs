@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Application.Interfaces;
 using System.Threading.Tasks;
-using Application.Dtos; 
+using Application.Dtos;
 using Domain.Entities;
+using System.Collections.Generic;
 
 namespace Web.Controllers
 {
@@ -11,52 +12,58 @@ namespace Web.Controllers
     public class StudentController : ControllerBase
     {
         private readonly IStudentService _studentService;
-        private readonly IUserService _userService;
 
-        public StudentController(IStudentService studentService, IUserService userService)
+        public StudentController(IStudentService studentService)
         {
             _studentService = studentService;
-            _userService = userService;
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetStudents()
-        //{
-        //    var students = await _studentService.GetStudentsAsync();
-        //    return Ok(students);
-        //}
+        [HttpPost]
+        public async Task<IActionResult> AddStudent([FromBody] StudentDto studentDto)
+        {
+            if (studentDto.U_ID <= 0)
+            {
+                return BadRequest("Invalid student ID.");
+            }
 
-        //[HttpPost]
-        //public async Task<IActionResult> AddStudent([FromBody] StudentDto studentDto)
-        //{
-        //    if (studentDto == null)
-        //    {
-        //        return BadRequest("Invalid student data.");
-        //    }
+            var student = new Student
+            {
+                Id = studentDto.U_ID,
+                Age = studentDto.Age,
+                Grade = studentDto.Grade
+            };
 
-        //    // Create User
-        //    var user = await _userService.AddUserAsync(studentDto.Name, studentDto.LastName, studentDto.Email, studentDto.Password, "Student");
-
-        //    // Create Student
-        //    var student = new Student
-        //    {
-        //        Id = user.Id,
-        //        Name = $"{studentDto.Name} {studentDto.LastName}",
-        //        Age = studentDto.Age,
-        //        Grade = studentDto.Grade
-        //    };
-
-        //    await _studentService.AddStudentAsync(student);
-
-        //    return Ok(student);
-        //}
+            await _studentService.AddStudentAsync(student);
+            return Ok(student);
+        }
 
 
-        //[HttpDelete("clear")]
-        //public async Task<IActionResult> ClearStudents()
-        //{
-        //    await _studentService.ClearStudentsAsync();
-        //    return NoContent();
-        //}
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Student>>> GetAllStudents()
+        {
+            var students = await _studentService.GetStudentsAsync();
+            return Ok(students);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateStudent(int id, [FromBody] StudentDto studentDto)
+        {
+            var student = new Student
+            {
+                Id = id,
+                Age = studentDto.Age,
+                Grade = studentDto.Grade
+            };
+
+            await _studentService.UpdateStudentAsync(student);
+            return Ok(student);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteStudent(int id)
+        {
+            await _studentService.DeleteStudentAsync(id);
+            return Ok();
+        }
     }
 }

@@ -20,27 +20,30 @@ namespace Infrastructure.Repositories
             return await _context.Student.ToListAsync();
         }
 
+        public async Task<Student> GetStudentByIdAsync(int id)
+        {
+            return await _context.Student.FindAsync(id);
+        }
         public async Task AddStudentAsync(Student student)
         {
-            var existingStudent = await _context.Student.AsNoTracking().FirstOrDefaultAsync(s => s.Id == student.Id);
-            if (existingStudent == null)
-            {
-                await _context.Student.AddAsync(student);
-            }
-            else
-            {
-                _context.Entry(student).State = EntityState.Modified;
-            }
+            await _context.Student.AddAsync(student);
             await _context.SaveChangesAsync();
         }
 
-
-
-
-        public async Task ClearStudentsAsync()
+        public async Task UpdateStudentAsync(Student student)
         {
-            _context.Student.RemoveRange(_context.Student);
+            _context.Student.Update(student);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteStudentAsync(int id)
+        {
+            var student = await _context.Student.FindAsync(id);
+            if (student != null)
+            {
+                _context.Student.Remove(student);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

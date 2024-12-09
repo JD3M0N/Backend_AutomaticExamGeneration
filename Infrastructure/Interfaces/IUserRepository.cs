@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Interfaces
@@ -7,5 +8,6 @@ namespace Infrastructure.Interfaces
     {
         Task AddUserAsync(User user);
         Task ClearUsersAsync();
+        Task<IEnumerable<User>> GetAllUsersAsync();
     }
 }

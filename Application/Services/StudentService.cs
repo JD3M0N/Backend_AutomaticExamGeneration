@@ -15,19 +15,31 @@ namespace Application.Services
             _studentRepository = studentRepository;
         }
 
-        //public async Task<IEnumerable<Student>> GetStudentsAsync()
-        //{
-        //    return await _studentRepository.GetStudentsAsync();
-        //}
+        public async Task<IEnumerable<Student>> GetStudentsAsync()
+        {
+            return await _studentRepository.GetStudentsAsync();
+        }
 
-        //public async Task AddStudentAsync(Student student)
-        //{
-        //    await _studentRepository.AddStudentAsync(student);
-        //}
+        public async Task AddStudentAsync(Student student)
+        {
+            var existingStudent = await _studentRepository.GetStudentByIdAsync(student.Id);
+            if (existingStudent != null)
+            {
+                throw new InvalidOperationException("A student with the same ID already exists.");
+            }
 
-        //public async Task ClearStudentsAsync()
-        //{
-        //    await _studentRepository.ClearStudentsAsync();
-        //}
+            await _studentRepository.AddStudentAsync(student);
+        }
+
+
+        public async Task UpdateStudentAsync(Student student)
+        {
+            await _studentRepository.UpdateStudentAsync(student);
+        }
+
+        public async Task DeleteStudentAsync(int id)
+        {
+            await _studentRepository.DeleteStudentAsync(id);
+        }
     }
 }

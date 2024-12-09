@@ -6,8 +6,11 @@ namespace Infrastructure.Interfaces
 {
     public interface IStudentRepository
     {
-        //Task<IEnumerable<Student>> GetStudentsAsync();
+        Task<IEnumerable<Student>> GetStudentsAsync();
+        Task<Student> GetStudentByIdAsync(int id);
         Task AddStudentAsync(Student student);
-        //Task ClearStudentsAsync();
+        Task UpdateStudentAsync(Student student);
+        Task DeleteStudentAsync(int id);
     }
 }
+
