@@ -6,9 +6,9 @@ namespace Application.Interfaces
 {
     public interface IProfessorService
     {
-        //Task<IEnumerable<Professor>> GetAllProfessorsAsync();
-        //Task AddProfessorAsync(Professor professor);
-        //Task DeleteProfessorAsync(Professor professor);
-        //Task ClearProfessorsAsync();
+        Task<IEnumerable<Professor>> GetProfessorsAsync();
+        Task AddProfessorAsync(Professor professor);
+        Task UpdateProfessorAsync(Professor professor);
+        Task DeleteProfessorAsync(int id);
     }
 }

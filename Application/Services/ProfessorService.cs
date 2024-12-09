@@ -15,24 +15,30 @@ namespace Application.Services
             _professorRepository = professorRepository;
         }
 
-        //public async Task<IEnumerable<Professor>> GetAllProfessorsAsync()
-        //{
-        //    return await _professorRepository.GetAllProfessorsAsync();
-        //}
+        public async Task<IEnumerable<Professor>> GetProfessorsAsync()
+        {
+            return await _professorRepository.GetProfessorsAsync();
+        }
 
         public async Task AddProfessorAsync(Professor professor)
         {
+            var existingProfessor = await _professorRepository.GetProfessorByIdAsync(professor.Id);
+            if (existingProfessor != null)
+            {
+                throw new InvalidOperationException("A professor with the same ID already exists.");
+            }
+
             await _professorRepository.AddProfessorAsync(professor);
         }
 
-        //public async Task DeleteProfessorAsync(Professor professor)
-        //{
-        //    await _professorRepository.DeleteProfessorAsync(professor);
-        //}
+        public async Task UpdateProfessorAsync(Professor professor)
+        {
+            await _professorRepository.UpdateProfessorAsync(professor);
+        }
 
-        //public async Task ClearProfessorsAsync()
-        //{
-        //    await _professorRepository.ClearProfessorsAsync();
-        //}
+        public async Task DeleteProfessorAsync(int id)
+        {
+            await _professorRepository.DeleteProfessorAsync(id);
+        }
     }
 }
