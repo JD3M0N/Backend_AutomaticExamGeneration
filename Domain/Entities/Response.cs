@@ -28,5 +28,8 @@ namespace Domain.Entities
 
         [Column("Response_Text")]
         public string Solution { get; set; }
+
+        public Exam Exam { get; set; }
+        public Student Student { get; set; }
     }
 }
