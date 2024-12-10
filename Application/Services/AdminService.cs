@@ -22,12 +22,6 @@ namespace Application.Services
 
         public async Task AddAdminAsync(Admin admin)
         {
-            var existingAdmin = await _adminRepository.GetAdminByIdAsync(admin.Id);
-            if (existingAdmin != null)
-            {
-                throw new InvalidOperationException("An admin with the same ID already exists.");
-            }
-
             await _adminRepository.AddAdminAsync(admin);
         }
 

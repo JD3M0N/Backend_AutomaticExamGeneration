@@ -17,6 +17,8 @@ namespace Infrastructure
         public DbSet<Question> Questions { get; set; }
         public DbSet<Assignment> Assignment { get; set; }
         public DbSet<Exam> Exam { get; set; }
+        public DbSet<Response> Response { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,6 +35,17 @@ namespace Infrastructure
             // Configurar la tabla para Question
             modelBuilder.Entity<Question>()
                 .ToTable("Question");
+            // Configurar la tabla para Assignment
+            modelBuilder.Entity<Assignment>()
+                .ToTable("Assignment");
+
+            // Configurar la tabla para Exam
+            modelBuilder.Entity<Exam>()
+                .ToTable("Exam");
+
+            // Configurar la tabla para Response
+            modelBuilder.Entity<Response>()
+                .ToTable("Response");
 
             // Configurar la relación entre Question y Topic
             modelBuilder.Entity<Question>()
@@ -40,19 +53,11 @@ namespace Infrastructure
                 .WithMany(t => t.Questions)
                 .HasForeignKey(q => q.TopicId);
 
-            // Configurar la tabla para Assignment
-            modelBuilder.Entity<Assignment>()
-                .ToTable("Assignment");
-
             // Configurar la relación entre Assignment y Professor
             modelBuilder.Entity<Assignment>()
                 .HasOne(a => a.Professor)
                 .WithOne()
                 .HasForeignKey<Assignment>(a => a.ProfessorId);
-
-            // Configurar la tabla para Exam
-            modelBuilder.Entity<Exam>()
-                .ToTable("Exam");
 
             // Configurar la relación entre Exam y Assignment
             modelBuilder.Entity<Exam>()

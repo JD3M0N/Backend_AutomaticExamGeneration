@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Domain.Entities;
+using Application.Dtos;
 
 namespace WebAPI.Controllers
 {
@@ -20,8 +21,15 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddQuestion([FromBody] QuestionDto questionDto)
         {
-            await _questionService.AddQuestionAsync(questionDto.Difficulty, questionDto.Type, questionDto.QuestionText, questionDto.TopicId);
-            return Ok();
+            var question = new Question
+            {
+                Difficulty = questionDto.Difficulty,
+                Type = questionDto.Type,
+                QuestionText = questionDto.QuestionText,
+                TopicId = questionDto.TopicId
+            };
+            await _questionService.AddQuestionAsync(question);
+            return Ok(question);
         }
 
         [HttpGet]
@@ -39,25 +47,18 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateQuestion(int id, [FromBody] UpdateQuestionDto updateQuestionDto)
+        public async Task<IActionResult> UpdateQuestion(int id, [FromBody]  QuestionDto questionDto)
         {
-            await _questionService.UpdateQuestionAsync(id, updateQuestionDto.Difficulty, updateQuestionDto.Type, updateQuestionDto.QuestionText);
-            return Ok();
+            var question = new Question
+            {
+                Id = id,
+                Difficulty = questionDto.Difficulty,
+                Type = questionDto.Type,
+                QuestionText = questionDto.QuestionText,
+                TopicId = questionDto.TopicId
+            };
+            await _questionService.UpdateQuestionAsync(question);
+            return Ok(question);
         }
-    }
-
-    public class QuestionDto
-    {
-        public int Difficulty { get; set; }
-        public string Type { get; set; }
-        public string QuestionText { get; set; }
-        public int TopicId { get; set; }
-    }
-
-    public class UpdateQuestionDto
-    {
-        public int Difficulty { get; set; }
-        public string Type { get; set; }
-        public string QuestionText { get; set; }
     }
 }

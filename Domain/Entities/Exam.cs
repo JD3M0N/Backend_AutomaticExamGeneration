@@ -33,5 +33,6 @@ namespace Domain.Entities
 
         public Assignment Assignment { get; set; }
         public Professor Professor { get; set; }
+        public ICollection<Question> Questions { get; set; } = new List<Question>();
     }
 }

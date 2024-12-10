@@ -32,6 +32,7 @@ builder.Services.AddScoped<ITopicRepository, TopicRepository>();
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<IAssignmentRepository, AssignmentRepository>();
 builder.Services.AddScoped<IExamRepository, ExamRepository>();
+builder.Services.AddScoped<IResponseRepository, ResponseRepository>();
 
 // Add services
 builder.Services.AddScoped<IStudentService, StudentService>();
@@ -41,6 +42,7 @@ builder.Services.AddScoped<ITopicService, TopicService>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddScoped<IAssignmentService, AssignmentService>();
 builder.Services.AddScoped<IExamService, ExamService>();
+builder.Services.AddScoped<IResponseService, ResponseService>();
 
 var app = builder.Build();
 

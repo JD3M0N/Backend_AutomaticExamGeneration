@@ -22,12 +22,6 @@ namespace Application.Services
 
         public async Task AddProfessorAsync(Professor professor)
         {
-            var existingProfessor = await _professorRepository.GetProfessorByIdAsync(professor.Id);
-            if (existingProfessor != null)
-            {
-                throw new InvalidOperationException("A professor with the same ID already exists.");
-            }
-
             await _professorRepository.AddProfessorAsync(professor);
         }
 

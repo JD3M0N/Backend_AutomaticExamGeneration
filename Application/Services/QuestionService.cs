@@ -15,16 +15,8 @@ namespace Application.Services
             _questionRepository = questionRepository;
         }
 
-        public async Task AddQuestionAsync(int difficulty, string type, string questionText, int topicId)
+        public async Task AddQuestionAsync(Question question)
         {
-            var question = new Question
-            {
-                Difficulty = difficulty,
-                Type = type,
-                QuestionText = questionText,
-                TopicId = topicId
-            };
-
             await _questionRepository.AddQuestionAsync(question);
         }
 
@@ -38,16 +30,9 @@ namespace Application.Services
             await _questionRepository.DeleteQuestionAsync(id);
         }
 
-        public async Task UpdateQuestionAsync(int id, int difficulty, string type, string questionText)
+        public async Task UpdateQuestionAsync(Question question)
         {
-            var question = await _questionRepository.GetQuestionByIdAsync(id);
-            if (question != null)
-            {
-                question.Difficulty = difficulty;
-                question.Type = type;
-                question.QuestionText = questionText;
-                await _questionRepository.UpdateQuestionAsync(question);
-            }
+            await _questionRepository.UpdateQuestionAsync(question);
         }
     }
 }

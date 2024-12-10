@@ -22,5 +22,11 @@ namespace Domain.Entities
         [ForeignKey("Exam")]
         [Column("X_ID")]
         public int ExamId { get; set; }
+
+        [Column("Response_Date")]
+        public DateTime Date { get; set; }
+
+        [Column("Response_Text")]
+        public string Solution { get; set; }
     }
 }
