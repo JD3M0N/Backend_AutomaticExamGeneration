@@ -17,7 +17,7 @@ namespace Domain.Entities
         public string StudyProgram { get; set; }
 
         [ForeignKey("Professor")]
-        [Column("U_ID")]
+        [Column("P_ID")]
         public int ProfessorId { get; set; }
 
         public Professor Professor { get; set; }

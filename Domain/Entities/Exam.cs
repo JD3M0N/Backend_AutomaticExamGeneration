@@ -16,7 +16,7 @@ namespace Domain.Entities
         public int AssignmentId { get; set; }
 
         [ForeignKey("Professor")]
-        [Column("U_ID")]
+        [Column("P_ID")]
         public int ProfessorId { get; set; }
 
         [Column("PPT")]
@@ -30,9 +30,6 @@ namespace Domain.Entities
 
         [Column("Creation_Date")]
         public DateTime Date { get; set; }
-
-        [Column("Status")]
-        public string Status { get; set; }
 
         public Assignment Assignment { get; set; }
         public Professor Professor { get; set; }
