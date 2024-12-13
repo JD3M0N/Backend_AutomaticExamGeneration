@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Ignorar archivos de caché generados por la compilación
+Application/obj/
+Domain/obj/
+Infrastructure/obj/
