@@ -35,6 +35,7 @@ namespace Infrastructure
             // Configurar la tabla para Question
             modelBuilder.Entity<Question>()
                 .ToTable("Question");
+
             // Configurar la tabla para Assignment
             modelBuilder.Entity<Assignment>()
                 .ToTable("Assignment");
@@ -45,7 +46,7 @@ namespace Infrastructure
 
             // Configurar la tabla para Response
             modelBuilder.Entity<Response>()
-                .ToTable("Response");                
+                .ToTable("Response");
 
             // Configurar la relación entre Question y Topic
             modelBuilder.Entity<Question>()
@@ -62,7 +63,7 @@ namespace Infrastructure
             // Configurar la relación entre Exam y Assignment
             modelBuilder.Entity<Exam>()
                 .HasOne(e => e.Assignment)
-                .WithMany(a => a.Exams)
+                .WithMany(a => a.Exams) // This line is now valid
                 .HasForeignKey(e => e.AssignmentId);
 
             // Configurar la relación entre Exam y Professor
@@ -71,5 +72,6 @@ namespace Infrastructure
                 .WithMany(p => p.Exams)
                 .HasForeignKey(e => e.ProfessorId);
         }
+
     }
 }

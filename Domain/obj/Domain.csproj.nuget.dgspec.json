@@ -1,24 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Proyectos\\Generación-automática-exámenes-BD-II-2025\\Backend_AutomaticExamGeneration\\Domain\\Domain.csproj": {}
+    "E:\\University\\3ro\\IS\\AEG\\AEG\\Domain\\Domain.csproj": {}
   },
   "projects": {
-    "E:\\Proyectos\\Generación-automática-exámenes-BD-II-2025\\Backend_AutomaticExamGeneration\\Domain\\Domain.csproj": {
+    "E:\\University\\3ro\\IS\\AEG\\AEG\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Proyectos\\Generación-automática-exámenes-BD-II-2025\\Backend_AutomaticExamGeneration\\Domain\\Domain.csproj",
+        "projectUniqueName": "E:\\University\\3ro\\IS\\AEG\\AEG\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "E:\\Proyectos\\Generación-automática-exámenes-BD-II-2025\\Backend_AutomaticExamGeneration\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\abelp\\.nuget\\packages\\",
-        "outputPath": "E:\\Proyectos\\Generación-automática-exámenes-BD-II-2025\\Backend_AutomaticExamGeneration\\Domain\\obj\\",
+        "projectPath": "E:\\University\\3ro\\IS\\AEG\\AEG\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\Josue\\.nuget\\packages\\",
+        "outputPath": "E:\\University\\3ro\\IS\\AEG\\AEG\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\abelp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Josue\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
