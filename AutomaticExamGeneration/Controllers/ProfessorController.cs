@@ -21,15 +21,13 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProfessor([FromBody] ProfessorDto professorDto)
         {
-            if (professorDto.U_ID <= 0)
-            {
-                return BadRequest("Invalid professor ID.");
-            }
-
+          
             var professor = new Professor
             {
-                Id = professorDto.U_ID,
-                Speciality = professorDto.Speciality
+                Name = professorDto.Name,
+                Email = professorDto.Email,
+                Password = professorDto.Password,
+                Specialization = professorDto.Specialization
             };
 
             await _professorService.AddProfessorAsync(professor);
@@ -49,7 +47,10 @@ namespace WebAPI.Controllers
             var professor = new Professor
             {
                 Id = id,
-                Speciality = professorDto.Speciality
+                Name = professorDto.Name,
+                Email = professorDto.Email,
+                Password = professorDto.Password,
+                Specialization = professorDto.Specialization
             };
 
             await _professorService.UpdateProfessorAsync(professor);

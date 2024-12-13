@@ -8,6 +8,5 @@ namespace Application.Dtos
         public string CT { get; set; }
         public string CTP { get; set; }
         public DateTime Date { get; set; }
-        public string Status { get; set; }
     }
 }

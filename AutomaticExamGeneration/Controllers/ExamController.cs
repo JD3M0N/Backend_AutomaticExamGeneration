@@ -28,8 +28,7 @@ namespace WebAPI.Controllers
                 PPT = examDto.PPT,
                 CT = examDto.CT,
                 CTP = examDto.CTP,
-                Date = examDto.Date,
-                Status = examDto.Status
+                Date = examDto.Date
             };
 
             await _examService.AddExamAsync(exam);
@@ -65,8 +64,7 @@ namespace WebAPI.Controllers
                 PPT = examDto.PPT,
                 CT = examDto.CT,
                 CTP = examDto.CTP,
-                Date = examDto.Date,
-                Status = examDto.Status
+                Date = examDto.Date
             };
 
             await _examService.UpdateExamAsync(exam);

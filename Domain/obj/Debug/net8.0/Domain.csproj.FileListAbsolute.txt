@@ -10,3 +10,15 @@ E:\University\3ro\IS\AEG\AEG\Domain\obj\Debug\net8.0\refint\Domain.dll
 E:\University\3ro\IS\AEG\AEG\Domain\obj\Debug\net8.0\Domain.pdb
 E:\University\3ro\IS\AEG\AEG\Domain\obj\Debug\net8.0\ref\Domain.dll
 E:\University\3ro\IS\AEG\AEG\Domain\obj\Debug\net8.0\Domain.sourcelink.json
+E:\Proyectos\Generación-automática-exámenes-BD-II-2025\Backend_AutomaticExamGeneration\Domain\bin\Debug\net8.0\Domain.deps.json
+E:\Proyectos\Generación-automática-exámenes-BD-II-2025\Backend_AutomaticExamGeneration\Domain\bin\Debug\net8.0\Domain.dll
+E:\Proyectos\Generación-automática-exámenes-BD-II-2025\Backend_AutomaticExamGeneration\Domain\bin\Debug\net8.0\Domain.pdb
+E:\Proyectos\Generación-automática-exámenes-BD-II-2025\Backend_AutomaticExamGeneration\Domain\obj\Debug\net8.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+E:\Proyectos\Generación-automática-exámenes-BD-II-2025\Backend_AutomaticExamGeneration\Domain\obj\Debug\net8.0\Domain.AssemblyInfoInputs.cache
+E:\Proyectos\Generación-automática-exámenes-BD-II-2025\Backend_AutomaticExamGeneration\Domain\obj\Debug\net8.0\Domain.AssemblyInfo.cs
+E:\Proyectos\Generación-automática-exámenes-BD-II-2025\Backend_AutomaticExamGeneration\Domain\obj\Debug\net8.0\Domain.csproj.CoreCompileInputs.cache
+E:\Proyectos\Generación-automática-exámenes-BD-II-2025\Backend_AutomaticExamGeneration\Domain\obj\Debug\net8.0\Domain.sourcelink.json
+E:\Proyectos\Generación-automática-exámenes-BD-II-2025\Backend_AutomaticExamGeneration\Domain\obj\Debug\net8.0\Domain.dll
+E:\Proyectos\Generación-automática-exámenes-BD-II-2025\Backend_AutomaticExamGeneration\Domain\obj\Debug\net8.0\refint\Domain.dll
+E:\Proyectos\Generación-automática-exámenes-BD-II-2025\Backend_AutomaticExamGeneration\Domain\obj\Debug\net8.0\Domain.pdb
+E:\Proyectos\Generación-automática-exámenes-BD-II-2025\Backend_AutomaticExamGeneration\Domain\obj\Debug\net8.0\ref\Domain.dll
