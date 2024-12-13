@@ -22,12 +22,6 @@ namespace Application.Services
 
         public async Task AddStudentAsync(Student student)
         {
-            var existingStudent = await _studentRepository.GetStudentByIdAsync(student.Id);
-            if (existingStudent != null)
-            {
-                throw new InvalidOperationException("A student with the same ID already exists.");
-            }
-
             await _studentRepository.AddStudentAsync(student);
         }
 

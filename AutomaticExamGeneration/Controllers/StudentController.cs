@@ -21,18 +21,16 @@ namespace Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddStudent([FromBody] StudentDto studentDto)
         {
-            if (studentDto.U_ID <= 0)
-            {
-                return BadRequest("Invalid student ID.");
-            }
-
+            
             var student = new Student
             {
-                Id = studentDto.U_ID,
+                Name = studentDto.Name,
+                Email = studentDto.Email,
+                Password = studentDto.Password,
                 Age = studentDto.Age,
                 Grade = studentDto.Grade
-            };
 
+            };
             await _studentService.AddStudentAsync(student);
             return Ok(student);
         }
@@ -51,6 +49,9 @@ namespace Web.Controllers
             var student = new Student
             {
                 Id = id,
+                Name = studentDto.Name,
+                Email = studentDto.Email,
+                Password = studentDto.Password,
                 Age = studentDto.Age,
                 Grade = studentDto.Grade
             };

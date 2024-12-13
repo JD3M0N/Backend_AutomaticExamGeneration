@@ -1,4 +1,4 @@
-using Application.Interfaces;
+﻿using Application.Interfaces;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Application.Dtos;
@@ -21,12 +21,13 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddResponse([FromBody] ResponseDto responseDto)
         {
+
             var response = new Response
             {
                 StudentId = responseDto.StudentId,
                 ExamId = responseDto.ExamId,
-                ResponseDate = responseDto.ResponseDate,
-                ResponseText = responseDto.ResponseText
+                Date = responseDto.Date,
+                Solution = responseDto.Solution
             };
 
             await _responseService.AddResponseAsync(response);
@@ -36,42 +37,31 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Response>>> GetAllResponses()
         {
-            var responses = await _responseService.GetResponsesAsync();
+            var responses = await _responseService.GetResponseAsync();
             return Ok(responses);
         }
 
-        [HttpGet("{studentId}/{examId}")]
-        public async Task<ActionResult<Response>> GetResponseById(int studentId, int examId)
-        {
-            var response = await _responseService.GetResponseByIdAsync(studentId, examId);
-            if (response == null)
-            {
-                return NotFound();
-            }
-            return Ok(response);
-        }
-
-        [HttpPut("{studentId}/{examId}")]
-        public async Task<IActionResult> UpdateResponse(int studentId, int examId, [FromBody] ResponseDto responseDto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateResponse(int id, [FromBody] ResponseDto responseDto)
         {
             var response = new Response
             {
-                StudentId = studentId,
-                ExamId = examId,
-                ResponseDate = responseDto.ResponseDate,
-                ResponseText = responseDto.ResponseText
+                Id = id,
+                StudentId = responseDto.StudentId,
+                ExamId = responseDto.ExamId,
+                Date = responseDto.Date,
+                Solution = responseDto.Solution
             };
 
             await _responseService.UpdateResponseAsync(response);
             return Ok(response);
         }
 
-        [HttpDelete("{studentId}/{examId}")]
-        public async Task<IActionResult> DeleteResponse(int studentId, int examId)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteResponse(int id)
         {
-            await _responseService.DeleteResponseAsync(studentId, examId);
+            await _responseService.DeleteResponseAsync(id);
             return Ok();
         }
     }
 }
-

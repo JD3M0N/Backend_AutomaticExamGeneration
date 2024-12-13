@@ -6,13 +6,23 @@ namespace Domain.Entities
     public class Student
     {
         [Key]
-        [Column("U_ID")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("ST_ID")]
         public int Id { get; set; }
 
-        [Column("E_Age")]
+        [Column("ST_Name")]
+        public string Name { get; set; }
+
+        [Column("ST_Email")]
+        public string Email { get; set; }
+
+        [Column("ST_Password")]
+        public string Password { get; set; }
+
+        [Column("ST_Age")]
         public int Age { get; set; }
 
-        [Column("Course")]
+        [Column("ST_Course")]
         public string Grade { get; set; }
     }
 }

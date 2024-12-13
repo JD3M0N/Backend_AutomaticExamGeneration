@@ -21,14 +21,12 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAdmin([FromBody] AdminDto adminDto)
         {
-            if (adminDto.U_ID <= 0)
-            {
-                return BadRequest("Invalid admin ID.");
-            }
-
+            
             var admin = new Admin
             {
-                Id = adminDto.U_ID
+                Name = adminDto.Name,
+                Email = adminDto.Email,
+                Password = adminDto.Password
             };
 
             await _adminService.AddAdminAsync(admin);
@@ -47,7 +45,10 @@ namespace WebAPI.Controllers
         {
             var admin = new Admin
             {
-                Id = id
+                Id = id,
+                Name = adminDto.Name,
+                Email = adminDto.Email,
+                Password = adminDto.Password
             };
 
             await _adminService.UpdateAdminAsync(admin);

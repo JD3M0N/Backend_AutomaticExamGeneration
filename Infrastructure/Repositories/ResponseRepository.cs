@@ -1,7 +1,10 @@
-using Domain.Entities;
+﻿using Domain.Entities;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
@@ -15,14 +18,14 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Response>> GetResponsesAsync()
+        public async Task<IEnumerable<Response>> GetResponseAsync()
         {
             return await _context.Response.ToListAsync();
         }
 
-        public async Task<Response> GetResponseByIdAsync(int studentId, int examId)
+        public async Task<Response> GetResponseByIdAsync(int id)
         {
-            return await _context.Response.FindAsync(studentId, examId);
+            return await _context.Response.FindAsync(id);
         }
 
         public async Task AddResponseAsync(Response response)
@@ -37,9 +40,9 @@ namespace Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteResponseAsync(int studentId, int examId)
+        public async Task DeleteResponseAsync(int id)
         {
-            var response = await _context.Response.FindAsync(studentId, examId);
+            var response = await _context.Response.FindAsync(id);
             if (response != null)
             {
                 _context.Response.Remove(response);
