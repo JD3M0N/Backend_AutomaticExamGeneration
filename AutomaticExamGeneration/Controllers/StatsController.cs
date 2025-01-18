@@ -44,13 +44,5 @@ namespace WebAPI.Controllers
             var questions = await _statsService.GetUnusedQuestionsAsync();
             return Ok(questions);
         }
-
-        [HttpGet("graded-exam-records")]
-        public async Task<ActionResult<IEnumerable<GradedExamRecordDto>>> GetGradedExamRecords()
-        {
-            var records = await _statsService.GetGradedExamRecordsAsync();
-            return Ok(records);
-        }
-
     }
 }
