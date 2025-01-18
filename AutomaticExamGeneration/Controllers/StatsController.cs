@@ -30,5 +30,12 @@ namespace WebAPI.Controllers
             var questions = await _statsService.GetMostUsedQuestionsByAssignmentNameAsync(assignmentName);
             return Ok(questions);
         }
+
+        [HttpGet("validated-exams/{professorId}")]
+        public async Task<ActionResult<IEnumerable<ValidatedExamDto>>> GetValidatedExamsByProfessorId(int professorId)
+        {
+            var exams = await _statsService.GetValidatedExamsByProfessorIdAsync(professorId);
+            return Ok(exams);
+        }
     }
 }
