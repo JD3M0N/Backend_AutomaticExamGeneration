@@ -37,5 +37,12 @@ namespace WebAPI.Controllers
             var exams = await _statsService.GetValidatedExamsByProfessorIdAsync(professorId);
             return Ok(exams);
         }
+
+        [HttpGet("unused-questions")]
+        public async Task<ActionResult<IEnumerable<UnusedQuestionDto>>> GetUnusedQuestions()
+        {
+            var questions = await _statsService.GetUnusedQuestionsAsync();
+            return Ok(questions);
+        }
     }
 }
