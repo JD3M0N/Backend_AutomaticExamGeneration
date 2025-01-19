@@ -19,19 +19,23 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> AddAdmin([FromBody] AdminDto adminDto)
         {
-            
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(adminDto.Password);
+
             var admin = new Admin
             {
                 Name = adminDto.Name,
                 Email = adminDto.Email,
-                Password = adminDto.Password
+                Password = hashedPassword // Guardar la contraseña hasheada
             };
 
             await _adminService.AddAdminAsync(admin);
+            Console.WriteLine($"admin '{admin.Name}' added correctly.");
             return Ok(admin);
         }
+
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Admin>>> GetAllAdmins()
@@ -43,15 +47,18 @@ namespace WebAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAdmin(int id, [FromBody] AdminDto adminDto)
         {
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(adminDto.Password);
+
             var admin = new Admin
             {
                 Id = id,
                 Name = adminDto.Name,
                 Email = adminDto.Email,
-                Password = adminDto.Password
+                Password = hashedPassword
             };
 
             await _adminService.UpdateAdminAsync(admin);
+            Console.WriteLine($"admin '{admin.Name}' modified correctly.");
             return Ok(admin);
         }
 

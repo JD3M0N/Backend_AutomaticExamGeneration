@@ -1,5 +1,6 @@
 using Application.Interfaces;
 using Application.Services;
+using Application.Utilities;
 using Infrastructure;
 using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
@@ -34,6 +35,7 @@ builder.Services.AddScoped<IAssignmentRepository, AssignmentRepository>();
 builder.Services.AddScoped<IExamRepository, ExamRepository>();
 builder.Services.AddScoped<IResponseRepository, ResponseRepository>();
 builder.Services.AddScoped<IStatsRepository, StatsRepository>();
+builder.Services.AddScoped<IEnrollRepository, EnrollRepository>();
 
 // Add services
 builder.Services.AddScoped<IStudentService, StudentService>();
@@ -45,8 +47,20 @@ builder.Services.AddScoped<IAssignmentService, AssignmentService>();
 builder.Services.AddScoped<IExamService, ExamService>();
 builder.Services.AddScoped<IResponseService, ResponseService>();
 builder.Services.AddScoped<IStatsService, StatsService>();
+builder.Services.AddScoped<IEnrollService, EnrollService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+
 
 var app = builder.Build();
+
+// Ejecutar migración de contraseñas (solo una vez)
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    var passwordMigration = new PasswordMigration(context);
+    await passwordMigration.MigrateProfessorPasswordsAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

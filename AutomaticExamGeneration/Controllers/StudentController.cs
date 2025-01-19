@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Application.Dtos;
 using Domain.Entities;
 using System.Collections.Generic;
+using System.Net.WebSockets;
 
 namespace Web.Controllers
 {
@@ -19,21 +20,25 @@ namespace Web.Controllers
         }
 
         [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> AddStudent([FromBody] StudentDto studentDto)
         {
-            
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(studentDto.Password);
+
             var student = new Student
             {
                 Name = studentDto.Name,
                 Email = studentDto.Email,
-                Password = studentDto.Password,
+                Password = hashedPassword, // Guardar la contraseña hasheada
                 Age = studentDto.Age,
                 Grade = studentDto.Grade
-
             };
+
             await _studentService.AddStudentAsync(student);
+            Console.WriteLine($"student '{studentDto.Name}' added correctly.");
             return Ok(student);
         }
+
 
 
         [HttpGet]
@@ -46,17 +51,20 @@ namespace Web.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateStudent(int id, [FromBody] StudentDto studentDto)
         {
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(studentDto.Password);
+
             var student = new Student
             {
                 Id = id,
                 Name = studentDto.Name,
                 Email = studentDto.Email,
-                Password = studentDto.Password,
+                Password = hashedPassword,
                 Age = studentDto.Age,
                 Grade = studentDto.Grade
             };
 
             await _studentService.UpdateStudentAsync(student);
+            Console.WriteLine($"student '{studentDto.Name}' modified correctly.");
             return Ok(student);
         }
 

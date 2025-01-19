@@ -21,18 +21,21 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProfessor([FromBody] ProfessorDto professorDto)
         {
-          
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(professorDto.Password);
+
             var professor = new Professor
             {
                 Name = professorDto.Name,
                 Email = professorDto.Email,
-                Password = professorDto.Password,
+                Password = hashedPassword, // Guardar la contraseña hasheada
                 Specialization = professorDto.Specialization
             };
 
             await _professorService.AddProfessorAsync(professor);
+            Console.WriteLine($"professor '{professor.Name}' added correctly.");
             return Ok(professor);
         }
+
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Professor>>> GetAllProfessors()
@@ -44,16 +47,19 @@ namespace WebAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProfessor(int id, [FromBody] ProfessorDto professorDto)
         {
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(professorDto.Password);
+
             var professor = new Professor
             {
                 Id = id,
                 Name = professorDto.Name,
                 Email = professorDto.Email,
-                Password = professorDto.Password,
+                Password = hashedPassword,
                 Specialization = professorDto.Specialization
             };
 
             await _professorService.UpdateProfessorAsync(professor);
+            Console.WriteLine($"professor '{professor.Name}' modified correctly.");
             return Ok(professor);
         }
 
