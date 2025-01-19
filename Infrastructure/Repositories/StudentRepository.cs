@@ -45,5 +45,9 @@ namespace Infrastructure.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+        public async Task<Student> GetStudentByEmailAsync(string email)
+        {
+            return await _context.Student.FirstOrDefaultAsync(a => a.Email == email);
+        }
     }
 }

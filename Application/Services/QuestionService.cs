@@ -34,5 +34,14 @@ namespace Application.Services
         {
             await _questionRepository.UpdateQuestionAsync(question);
         }
+        public async Task AddEnterAsync(int professorId, int questionId)
+        {
+            var enter = new Enter
+            {
+                ProfessorId = professorId,
+                QuestionId = questionId
+            };
+            await _questionRepository.AddEnterAsync(enter);
+        }
     }
 }

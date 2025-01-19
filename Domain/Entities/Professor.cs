@@ -22,5 +22,6 @@ namespace Domain.Entities
         [Column("P_Specialization")]
         public string Specialization { get; set; }
         public ICollection<Exam> Exams { get; set; } = new List<Exam>();
+        public ICollection<Enter> Enters { get; set; } = new List<Enter>();
     }
 }

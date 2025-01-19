@@ -2,6 +2,7 @@ using Domain.Entities;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
@@ -45,6 +46,25 @@ namespace Infrastructure.Repositories
                 _context.Exam.Remove(exam);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task AddQuestionToExamAsync(int examId, int questionId)
+        {
+            var belong = new Belong
+            {
+                ExamId = examId,
+                QuestionId = questionId
+            };
+            await _context.Belong.AddAsync(belong);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Question>> GetQuestionsForExamAsync(int examId)
+        {
+            return await _context.Belong
+                .Where(b => b.ExamId == examId)
+                .Select(b => b.Question)
+                .ToListAsync();
         }
     }
 }

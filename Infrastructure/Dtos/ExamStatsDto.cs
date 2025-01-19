@@ -1,3 +1,4 @@
+using Domain.Entities;
 using System;
 
 namespace Infrastructure.Dtos

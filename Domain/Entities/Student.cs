@@ -24,5 +24,6 @@ namespace Domain.Entities
 
         [Column("ST_Course")]
         public string Grade { get; set; }
+        public ICollection<Enroll> Enrolls { get; set; } = new List<Enroll>();
     }
 }

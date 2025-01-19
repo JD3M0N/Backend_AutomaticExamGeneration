@@ -18,7 +18,9 @@ namespace Infrastructure
         public DbSet<Assignment> Assignment { get; set; }
         public DbSet<Exam> Exam { get; set; }
         public DbSet<Response> Response { get; set; }
-
+        public DbSet<Belong> Belong { get; set; }
+        public DbSet<Enroll> Enroll { get; set; }
+        public DbSet<Enter> Enter { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -48,6 +50,18 @@ namespace Infrastructure
             modelBuilder.Entity<Response>()
                 .ToTable("Response");
 
+            // Configurar la tabla para Belong
+            modelBuilder.Entity<Belong>()
+                .ToTable("Belong");
+
+            // Configurar la tabla para Enroll
+            modelBuilder.Entity<Enroll>()
+                .ToTable("Enroll");
+
+            // Configurar la tabla para Enter
+            modelBuilder.Entity<Enter>()
+                .ToTable("Enter");
+
             // Configurar la relación entre Question y Topic
             modelBuilder.Entity<Question>()
                 .HasOne(q => q.Topic)
@@ -63,7 +77,7 @@ namespace Infrastructure
             // Configurar la relación entre Exam y Assignment
             modelBuilder.Entity<Exam>()
                 .HasOne(e => e.Assignment)
-                .WithMany(a => a.Exams) // This line is now valid
+                .WithMany(a => a.Exams)
                 .HasForeignKey(e => e.AssignmentId);
 
             // Configurar la relación entre Exam y Professor
@@ -71,7 +85,39 @@ namespace Infrastructure
                 .HasOne(e => e.Professor)
                 .WithMany(p => p.Exams)
                 .HasForeignKey(e => e.ProfessorId);
-        }
 
+            // Configurar la relación many-to-many entre Question y Exam usando Belong
+            modelBuilder.Entity<Belong>()
+                .HasOne(b => b.Question)
+                .WithMany(q => q.Belongs)
+                .HasForeignKey(b => b.QuestionId);
+
+            modelBuilder.Entity<Belong>()
+                .HasOne(b => b.Exam)
+                .WithMany(e => e.Belongs)
+                .HasForeignKey(b => b.ExamId);
+
+            // Configurar la relación many-to-many entre Student y Assignment usando Enroll
+            modelBuilder.Entity<Enroll>()
+                .HasOne(e => e.Student)
+                .WithMany(s => s.Enrolls)
+                .HasForeignKey(e => e.StudentId);
+
+            modelBuilder.Entity<Enroll>()
+                .HasOne(e => e.Assignment)
+                .WithMany(a => a.Enrolls)
+                .HasForeignKey(e => e.AssignmentId);
+
+            // Configurar la relación entre Professor y Question usando Enter
+            modelBuilder.Entity<Enter>()
+                .HasOne(e => e.Professor)
+                .WithMany(p => p.Enters)
+                .HasForeignKey(e => e.ProfessorId);
+
+            modelBuilder.Entity<Enter>()
+                .HasOne(e => e.Question)
+                .WithMany(q => q.Enters)
+                .HasForeignKey(e => e.QuestionId);
+        }
     }
 }

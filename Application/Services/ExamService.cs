@@ -39,5 +39,15 @@ namespace Application.Services
         {
             await _examRepository.DeleteExamAsync(id);
         }
+
+        public async Task AddQuestionToExamAsync(int examId, int questionId)
+        {
+            await _examRepository.AddQuestionToExamAsync(examId, questionId);
+        }
+
+        public async Task<IEnumerable<Question>> GetQuestionsForExamAsync(int examId)
+        {
+            return await _examRepository.GetQuestionsForExamAsync(examId);
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace Infrastructure.Interfaces
         Task AddAdminAsync(Admin admin);
         Task UpdateAdminAsync(Admin admin);
         Task DeleteAdminAsync(int id);
+        Task<Admin> GetAdminByEmailAsync(string email);
     }
 }

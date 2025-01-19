@@ -3,27 +3,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities
 {
-    public class Assignment
+    public class Enter
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("A_ID")]
+        [Column("E_ID")]
         public int Id { get; set; }
-
-        [Column("A_Name")]
-        public string Name { get; set; }
-
-        [Column("Study_Program")]
-        public string StudyProgram { get; set; }
 
         [ForeignKey("Professor")]
         [Column("P_ID")]
         public int ProfessorId { get; set; }
-
         public Professor Professor { get; set; }
 
-        public ICollection<Exam> Exams { get; set; } = new List<Exam>();
-        public ICollection<Enroll> Enrolls { get; set; } = new List<Enroll>();
+        [ForeignKey("Question")]
+        [Column("Q_ID")]
+        public int QuestionId { get; set; }
+        public Question Question { get; set; }
     }
-
 }

@@ -25,5 +25,7 @@ namespace Domain.Entities
         public Topic Topic { get; set; }
 
         public ICollection<Exam> Exams { get; set; } = new List<Exam>();
+        public ICollection<Belong> Belongs { get; set; } = new List<Belong>();
+        public ICollection<Enter> Enters { get; set; } = new List<Enter>();
     }
 }

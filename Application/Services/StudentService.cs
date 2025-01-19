@@ -9,10 +9,12 @@ namespace Application.Services
     public class StudentService : IStudentService
     {
         private readonly IStudentRepository _studentRepository;
+        private readonly IEnrollService _enrollService;
 
-        public StudentService(IStudentRepository studentRepository)
+        public StudentService(IStudentRepository studentRepository, IEnrollService enrollService)
         {
             _studentRepository = studentRepository;
+            _enrollService = enrollService;
         }
 
         public async Task<IEnumerable<Student>> GetStudentsAsync()
@@ -24,7 +26,6 @@ namespace Application.Services
         {
             await _studentRepository.AddStudentAsync(student);
         }
-
 
         public async Task UpdateStudentAsync(Student student)
         {

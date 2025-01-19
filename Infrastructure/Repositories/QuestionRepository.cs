@@ -46,5 +46,10 @@ namespace Infrastructure.Repositories
         {
             return await _context.Questions.FindAsync(id);
         }
+        public async Task AddEnterAsync(Enter enter)
+        {
+            await _context.Enter.AddAsync(enter);
+            await _context.SaveChangesAsync();
+        }
     }
 }

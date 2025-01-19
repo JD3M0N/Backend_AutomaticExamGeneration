@@ -11,5 +11,6 @@ namespace Infrastructure.Interfaces
         Task AddProfessorAsync(Professor professor);
         Task UpdateProfessorAsync(Professor professor);
         Task DeleteProfessorAsync(int id);
+        Task<Professor> GetProfessorByEmailAsync(string email);
     }
 }
