@@ -23,5 +23,6 @@ namespace Domain.Entities
         public string Specialization { get; set; }
         public ICollection<Exam> Exams { get; set; } = new List<Exam>();
         public ICollection<Enter> Enters { get; set; } = new List<Enter>();
+        public ICollection<Teach> Teaches { get; set; } = new List<Teach>();
     }
 }

@@ -21,6 +21,7 @@ namespace Infrastructure
         public DbSet<Belong> Belong { get; set; }
         public DbSet<Enroll> Enroll { get; set; }
         public DbSet<Enter> Enter { get; set; }
+        public DbSet<Teach> Teach { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -61,6 +62,10 @@ namespace Infrastructure
             // Configurar la tabla para Enter
             modelBuilder.Entity<Enter>()
                 .ToTable("Enter");
+
+            // Configurar la tabla para Teach
+            modelBuilder.Entity<Teach>()
+                .ToTable("Teach"); 
 
             // Configurar la relación entre Question y Topic
             modelBuilder.Entity<Question>()

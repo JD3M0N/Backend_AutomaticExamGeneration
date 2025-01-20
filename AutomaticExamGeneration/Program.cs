@@ -36,6 +36,7 @@ builder.Services.AddScoped<IExamRepository, ExamRepository>();
 builder.Services.AddScoped<IResponseRepository, ResponseRepository>();
 builder.Services.AddScoped<IStatsRepository, StatsRepository>();
 builder.Services.AddScoped<IEnrollRepository, EnrollRepository>();
+builder.Services.AddScoped<ITeachRepository, TeachRepository>();
 
 // Add services
 builder.Services.AddScoped<IStudentService, StudentService>();
@@ -51,6 +52,7 @@ builder.Services.AddScoped<IEnrollService, EnrollService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserValidationService, UserValidationService>();
+builder.Services.AddScoped<ITeachService, TeachService>();
 
 
 var app = builder.Build();
