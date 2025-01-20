@@ -5,6 +5,7 @@ using Application.Dtos;
 using Domain.Entities;
 using System.Collections.Generic;
 using System.Net.WebSockets;
+using Application.Services;
 
 namespace Web.Controllers
 {
@@ -13,16 +14,24 @@ namespace Web.Controllers
     public class StudentController : ControllerBase
     {
         private readonly IStudentService _studentService;
+        private readonly IUserValidationService _userValidationService;
 
-        public StudentController(IStudentService studentService)
+        public StudentController(IStudentService studentService, IUserValidationService userValidationService)
         {
             _studentService = studentService;
+            _userValidationService = userValidationService; 
         }
 
-        [HttpPost]
+        //[HttpPost]
         [HttpPost]
         public async Task<IActionResult> AddStudent([FromBody] StudentDto studentDto)
         {
+            if (await _userValidationService.EmailExistsAsync(studentDto.Email))
+            {
+                Console.WriteLine("El correo ya está registrado.");
+                return BadRequest(new { message = "El correo ya está registrado." });
+            }
+
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(studentDto.Password);
 
             var student = new Student

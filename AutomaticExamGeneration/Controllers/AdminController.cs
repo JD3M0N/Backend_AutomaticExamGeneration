@@ -12,16 +12,24 @@ namespace WebAPI.Controllers
     public class AdminController : ControllerBase
     {
         private readonly IAdminService _adminService;
+        private readonly IUserValidationService _userValidationService;
 
-        public AdminController(IAdminService adminService)
+        public AdminController(IAdminService adminService, IUserValidationService userValidationService)
         {
             _adminService = adminService;
+            _userValidationService = userValidationService;
         }
 
         [HttpPost]
         [HttpPost]
         public async Task<IActionResult> AddAdmin([FromBody] AdminDto adminDto)
         {
+            if (await _userValidationService.EmailExistsAsync(adminDto.Email))
+            {
+                Console.WriteLine("El correo ya está registrado.");
+                return BadRequest(new { message = "El correo ya está registrado." });
+            }
+
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(adminDto.Password);
 
             var admin = new Admin

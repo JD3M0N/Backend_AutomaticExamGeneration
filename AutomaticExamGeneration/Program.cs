@@ -50,17 +50,18 @@ builder.Services.AddScoped<IStatsService, StatsService>();
 builder.Services.AddScoped<IEnrollService, EnrollService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IUserValidationService, UserValidationService>();
 
 
 var app = builder.Build();
 
 // Ejecutar migración de contraseñas (solo una vez)
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    var passwordMigration = new PasswordMigration(context);
-    await passwordMigration.MigrateProfessorPasswordsAsync();
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+//    var passwordMigration = new PasswordMigration(context);
+//    await passwordMigration.MigrateProfessorPasswordsAsync();
+//}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

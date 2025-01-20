@@ -12,15 +12,23 @@ namespace WebAPI.Controllers
     public class ProfessorController : ControllerBase
     {
         private readonly IProfessorService _professorService;
+        private readonly IUserValidationService _userValidationService;
 
-        public ProfessorController(IProfessorService professorService)
+        public ProfessorController(IProfessorService professorService, IUserValidationService userValidationService)
         {
             _professorService = professorService;
+            _userValidationService = userValidationService;
         }
 
         [HttpPost]
         public async Task<IActionResult> AddProfessor([FromBody] ProfessorDto professorDto)
         {
+            if (await _userValidationService.EmailExistsAsync(professorDto.Email))
+            {
+                Console.WriteLine("El correo ya está registrado.");
+                return BadRequest(new { message = "El correo ya está registrado." });
+            }
+
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(professorDto.Password);
 
             var professor = new Professor
