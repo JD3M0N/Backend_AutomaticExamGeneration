@@ -11,5 +11,6 @@ namespace Infrastructure.Interfaces
         Task DeleteTopicAsync(int id);
         Task UpdateTopicAsync(Topic topic);
         Task<Topic> GetTopicByIdAsync(int id);
+        Task<Topic> GetTopicByNameAsync(string name);
     }
 }

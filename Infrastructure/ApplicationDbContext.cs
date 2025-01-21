@@ -22,6 +22,7 @@ namespace Infrastructure
         public DbSet<Enroll> Enroll { get; set; }
         public DbSet<Enter> Enter { get; set; }
         public DbSet<Teach> Teach { get; set; }
+        public DbSet<Own> Own { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -65,7 +66,11 @@ namespace Infrastructure
 
             // Configurar la tabla para Teach
             modelBuilder.Entity<Teach>()
-                .ToTable("Teach"); 
+                .ToTable("Teach");
+
+            // Configurar la tabla para Own
+            modelBuilder.Entity<Own>()
+                .ToTable("Own");
 
             // Configurar la relación entre Question y Topic
             modelBuilder.Entity<Question>()
@@ -123,6 +128,17 @@ namespace Infrastructure
                 .HasOne(e => e.Question)
                 .WithMany(q => q.Enters)
                 .HasForeignKey(e => e.QuestionId);
+
+            // Configurar la relación many-to-many entre Assignment y Topic usando Own
+            modelBuilder.Entity<Own>()
+                .HasOne(o => o.Assignment)
+                .WithMany(a => a.Owns)
+                .HasForeignKey(o => o.AssignmentId);
+
+            modelBuilder.Entity<Own>()
+                .HasOne(o => o.Topic)
+                .WithMany(t => t.Owns)
+                .HasForeignKey(o => o.TopicId);
         }
     }
 }

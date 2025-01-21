@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
 using Infrastructure.Interfaces;
+using Infrastructure.Repositories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -48,6 +49,12 @@ namespace Application.Services
         public async Task<Topic> GetTopicByIdAsync(int id)
         {
             return await _topicRepository.GetTopicByIdAsync(id);
+        }
+
+        public async Task<int?> GetTopicIdByNameAsync(string name)
+        {
+            var topic = await _topicRepository.GetTopicByNameAsync(name);
+            return topic?.Id;
         }
     }
 }

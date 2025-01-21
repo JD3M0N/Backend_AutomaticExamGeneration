@@ -11,5 +11,6 @@ namespace Application.Interfaces
         Task DeleteTopicAsync(int id);
         Task UpdateTopicAsync(int id, string name);
         Task<Topic> GetTopicByIdAsync(int id);
+        Task<int?> GetTopicIdByNameAsync(string name);
     }
 }

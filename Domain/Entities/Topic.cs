@@ -15,5 +15,6 @@ namespace Domain.Entities
         public string Name { get; set; }
 
         public ICollection<Question> Questions { get; set; } = new List<Question>();
+        public ICollection<Own> Owns { get; set; } = new List<Own>();
     }
 }
