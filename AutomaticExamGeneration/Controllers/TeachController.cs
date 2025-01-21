@@ -5,6 +5,7 @@ using Application.Dtos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Infrastructure.Dtos;
+using Application.Services;
 
 namespace WebAPI.Controllers
 {
@@ -13,10 +14,14 @@ namespace WebAPI.Controllers
     public class TeachController : ControllerBase
     {
         private readonly ITeachService _teachService;
+        private readonly IProfessorService _professorService;
+        private readonly IAssignmentService _assignmentService;
 
-        public TeachController(ITeachService teachService)
+        public TeachController(ITeachService teachService, IProfessorService professorService, IAssignmentService assignmentService)
         {
             _teachService = teachService;
+            _professorService = professorService;
+            _assignmentService = assignmentService;
         }
 
         [HttpPost]
@@ -31,6 +36,37 @@ namespace WebAPI.Controllers
             await _teachService.AddTeachAsync(teach);
             return Ok(teach);
         }
+        [HttpPost("add-with-email-and-assignment")]
+        public async Task<IActionResult> AddTeachWithEmailAndAssignment([FromBody] TeachWithEmailDto teachDto)
+        {
+            if (teachDto == null || string.IsNullOrEmpty(teachDto.Email) || string.IsNullOrEmpty(teachDto.AssignmentName))
+                return BadRequest("Invalid data.");
+
+            // Buscar al profesor por correo
+            var professor = await _professorService.GetProfessorByEmailAsync(teachDto.Email);
+            if (professor == null)
+                return NotFound("Professor with the given email not found.");
+
+            // Buscar la asignatura por nombre
+            var assignmentId = await _assignmentService.GetAssignmentIdByNameAsync(teachDto.AssignmentName);
+            if (assignmentId == null)
+                return NotFound("Assignment with the given name not found.");
+
+            // Crear una nueva entrada en Teach
+            var teach = new Teach
+            {
+                ProfessorId = professor.Id,
+                AssignmentId = assignmentId.Value
+            };
+
+            await _teachService.AddTeachAsync(teach);
+
+            // Escribir en la consola el nombre del profesor y el nombre de la asignatura
+            Console.WriteLine($"{professor.Name} teaches {teachDto.AssignmentName}");
+
+            return Ok("Teach entry added successfully.");
+        }
+
 
         //[HttpGet]
         [HttpGet]

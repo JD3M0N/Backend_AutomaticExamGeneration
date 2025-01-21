@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Dtos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Application.Services;
 
 namespace WebAPI.Controllers
 {
@@ -12,10 +14,12 @@ namespace WebAPI.Controllers
     public class AssignmentController : ControllerBase
     {
         private readonly IAssignmentService _assignmentService;
+        private readonly IProfessorService _professorService;
 
-        public AssignmentController(IAssignmentService assignmentService)
+        public AssignmentController(IAssignmentService assignmentService, IProfessorService professorService)
         {
             _assignmentService = assignmentService;
+            _professorService = professorService;
         }
 
         [HttpPost]
@@ -32,7 +36,37 @@ namespace WebAPI.Controllers
             return Ok(assignment);
         }
 
-        [HttpGet]
+
+[HttpPost("add-with-email")]
+        public async Task<IActionResult> AddAssignmentWithEmail([FromBody] AssignmentWithEmailDto assignmentDto)
+        {
+            if (assignmentDto == null)
+                return BadRequest("Invalid data.");
+
+            // Buscar al profesor por correo 
+            var professor = await _professorService.GetProfessorByEmailAsync(assignmentDto.Email);
+            if (professor == null)
+                return NotFound("Professor with the given email not found.");
+
+            // Crear la asignatura
+            var assignment = new Assignment
+            {
+                Name = assignmentDto.Name,
+                StudyProgram = assignmentDto.StudyProgram,
+                ProfessorId = professor.Id
+            };
+
+            // Guardar en la base de datos
+            await _assignmentService.AddAssignmentAsync(assignment);
+
+            // Escribir en la consola el nombre y el ID del profesor
+            Console.WriteLine($"Professor added: Name = {professor.Name}, ID = {professor.Id}");
+
+            return Ok("Assignment added successfully.");
+        }
+
+
+    [HttpGet]
         public async Task<ActionResult<IEnumerable<Assignment>>> GetAllAssignments()
         {
             var assignments = await _assignmentService.GetAssignmentsAsync();

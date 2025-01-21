@@ -46,5 +46,9 @@ namespace Infrastructure.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+        public async Task<Assignment> GetAssignmentByNameAsync(string name)
+        {
+            return await _context.Assignment.FirstOrDefaultAsync(a => a.Name == name);
+        }
     }
 }

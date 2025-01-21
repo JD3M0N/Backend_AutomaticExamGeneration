@@ -39,5 +39,10 @@ namespace Application.Services
         {
             await _assignmentRepository.DeleteAssignmentAsync(id);
         }
+        public async Task<int?> GetAssignmentIdByNameAsync(string name)
+        {
+            var assignment = await _assignmentRepository.GetAssignmentByNameAsync(name);
+            return assignment?.Id;
+        }
     }
 }

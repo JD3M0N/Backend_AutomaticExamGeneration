@@ -11,5 +11,6 @@ namespace Infrastructure.Interfaces
         Task AddAssignmentAsync(Assignment assignment);
         Task UpdateAssignmentAsync(Assignment assignment);
         Task DeleteAssignmentAsync(int id);
+        Task<Assignment> GetAssignmentByNameAsync(string name);
     }
 }

@@ -34,5 +34,10 @@ namespace Application.Services
         {
             await _professorRepository.DeleteProfessorAsync(id);
         }
+
+        public async Task<Professor> GetProfessorByEmailAsync(string email)
+        {
+            return await _professorRepository.GetProfessorByEmailAsync(email);
+        }
     }
 }
