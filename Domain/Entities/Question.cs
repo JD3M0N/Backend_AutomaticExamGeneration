@@ -24,6 +24,11 @@ namespace Domain.Entities
         public int TopicId { get; set; }
         public Topic Topic { get; set; }
 
+        [ForeignKey("Professor")]
+        [Column("P_ID")]
+        public int ProfessorId { get; set; }
+        public Professor Professor { get; set; }
+
         public ICollection<Exam> Exams { get; set; } = new List<Exam>();
         public ICollection<Belong> Belongs { get; set; } = new List<Belong>();
         public ICollection<Enter> Enters { get; set; } = new List<Enter>();

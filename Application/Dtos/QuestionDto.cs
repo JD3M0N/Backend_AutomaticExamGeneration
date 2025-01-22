@@ -12,5 +12,6 @@ namespace Application.Dtos
         public string Type { get; set; }
         public string QuestionText { get; set; }
         public int TopicId { get; set; }
+        public int ProfessorId { get; set; }
     }
 }
