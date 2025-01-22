@@ -38,10 +38,18 @@ namespace Application.Services
             }
 
             // Verificar en Professor
+            //var professor = await _professorRepository.GetProfessorByEmailAsync(loginDto.Email);
+            //if (professor != null && VerifyPassword(loginDto.Password, professor.Password))
+            //{
+            //    var token = _tokenService.GenerateToken(professor.Id, "Professor");
+            //    return new AuthResultDto(true, "Professor", token);
+            //}
+
+            // Verificar en Professor
             var professor = await _professorRepository.GetProfessorByEmailAsync(loginDto.Email);
             if (professor != null && VerifyPassword(loginDto.Password, professor.Password))
             {
-                var token = _tokenService.GenerateToken(professor.Id, "Professor");
+                var token = _tokenService.GenerateToken(professor.Id, "Professor", professor.Id); // Pasa el professorId
                 return new AuthResultDto(true, "Professor", token);
             }
 

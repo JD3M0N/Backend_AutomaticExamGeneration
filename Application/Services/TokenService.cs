@@ -22,13 +22,19 @@ namespace Application.Services
             }
         }
 
-        public string GenerateToken(int userId, string userType)
+        public string GenerateToken(int userId, string userType, int? professorId = null)
         {
-            var claims = new[]
+            var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
-                new Claim(ClaimTypes.Role, userType)
+                new Claim(ClaimTypes.NameIdentifier, userId.ToString()), // ID del usuario
+                new Claim(ClaimTypes.Role, userType) // Tipo de usuario (Admin, Professor, Student)
             };
+
+            // Agregar el professorId si el usuario es un profesor
+            if (professorId.HasValue)
+            {
+                claims.Add(new Claim("professorId", professorId.Value.ToString()));
+            }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_key));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -37,11 +43,12 @@ namespace Application.Services
                 issuer: "yourdomain.com",
                 audience: "yourdomain.com",
                 claims: claims,
-                expires: DateTime.Now.AddHours(2),
+                expires: DateTime.Now.AddHours(2), // Configurar tiempo de expiración
                 signingCredentials: creds
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
     }
 }
