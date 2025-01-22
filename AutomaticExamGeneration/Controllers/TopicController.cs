@@ -21,6 +21,9 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> AddTopic([FromBody] string name)
         {
             await _topicService.AddTopicAsync(name);
+
+            //Write in console that a topic has been added
+            System.Console.WriteLine($"Topic {name} added");
             return Ok();
         }
 

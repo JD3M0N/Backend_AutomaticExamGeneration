@@ -12,23 +12,44 @@ namespace WebAPI.Controllers
     public class QuestionController : ControllerBase
     {
         private readonly IQuestionService _questionService;
+        private readonly IAuthorizationService _authorizationService;
 
-        public QuestionController(IQuestionService questionService)
+        public QuestionController(IQuestionService questionService, IAuthorizationService authorizationService)
         {
             _questionService = questionService;
+            _authorizationService = authorizationService;
         }
 
         [HttpPost]
         public async Task<IActionResult> AddQuestion([FromBody] QuestionDto questionDto)
         {
+            // Simula que recibes el ID del profesor desde el DTO o el token de autenticación
+            //int professorId = questionDto.ProfessorId;
+
+            // Verifica si el profesor tiene permiso para añadir preguntas a este tema
+            bool canAdd = await _authorizationService.CanAddQuestionAsync(questionDto.ProfessorId, questionDto.TopicId);
+
+            if (!canAdd)
+            {
+                //Write in console what professor can't add what topic
+                System.Console.WriteLine($"El profesor {questionDto.ProfessorId} no tiene permiso para añadir preguntas al tema {questionDto.TopicId}");
+                return Unauthorized("No tienes permiso para añadir preguntas a este tema.");
+            }
+
+            // Si tiene permiso, procede a crear la pregunta
             var question = new Question
             {
                 Difficulty = questionDto.Difficulty,
                 Type = questionDto.Type,
                 QuestionText = questionDto.QuestionText,
-                TopicId = questionDto.TopicId
+                TopicId = questionDto.TopicId,
+                ProfessorId = questionDto.ProfessorId
             };
+
             await _questionService.AddQuestionAsync(question);
+
+            //Write in console that a question has been added
+            System.Console.WriteLine($"Pregunta '{question.QuestionText}' añadida correctamente.");
             return Ok(question);
         }
 
@@ -47,7 +68,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateQuestion(int id, [FromBody]  QuestionDto questionDto)
+        public async Task<IActionResult> UpdateQuestion(int id, [FromBody] QuestionDto questionDto)
         {
             var question = new Question
             {

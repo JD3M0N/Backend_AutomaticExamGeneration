@@ -38,6 +38,7 @@ builder.Services.AddScoped<IStatsRepository, StatsRepository>();
 builder.Services.AddScoped<IEnrollRepository, EnrollRepository>();
 builder.Services.AddScoped<ITeachRepository, TeachRepository>();
 builder.Services.AddScoped<IOwnRepository, OwnRepository>();
+builder.Services.AddScoped<IAuthorizationRepository, AuthorizationRepository>();
 
 // Add services
 builder.Services.AddScoped<IStudentService, StudentService>();
@@ -55,6 +56,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserValidationService, UserValidationService>();
 builder.Services.AddScoped<ITeachService, TeachService>();
 builder.Services.AddScoped<IOwnService, OwnService>();
+builder.Services.AddScoped<IAuthorizationService, AuthorizationService>();
 
 
 var app = builder.Build();
