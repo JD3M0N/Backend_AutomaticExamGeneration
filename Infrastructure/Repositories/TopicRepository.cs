@@ -25,11 +25,12 @@ namespace Infrastructure.Repositories
         public async Task<IEnumerable<TopicDto>> GetAllTopicsAsync()
         {
             return await _context.Topic
-                .Include(t => t.Assignment)
+                .Include(t => t.Assignment) 
                 .Select(t => new TopicDto
                 {
                     Name = t.Name,
-                    AssignmentName = t.Assignment.Name
+                    AssignmentId = t.AssignmentId,
+                    AssignmentName = t.Assignment.Name 
                 })
                 .ToListAsync();
         }

@@ -22,7 +22,7 @@ namespace Application.Services
             var topic = new Topic
             {
                 Name = name,
-                AssignmentId = assignmentId 
+                AssignmentId = assignmentId
             };
 
             await _topicRepository.AddTopicAsync(topic);

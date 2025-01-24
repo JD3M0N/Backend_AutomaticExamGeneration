@@ -19,17 +19,17 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddTopic([FromBody] TopicDto topicDto)
+        public async Task<IActionResult> AddTopic([FromBody] CreateTopicDto createTopicDto)
         {
-            if (topicDto == null || string.IsNullOrEmpty(topicDto.Name) || topicDto.AssignmentId <= 0)
+            if (createTopicDto == null || string.IsNullOrEmpty(createTopicDto.Name) || createTopicDto.AssignmentId <= 0)
             {
                 return BadRequest("Invalid data. Both Topic Name and AssignmentId are required.");
             }
 
-            await _topicService.AddTopicAsync(topicDto.Name, topicDto.AssignmentId);
+            await _topicService.AddTopicAsync(createTopicDto.Name, createTopicDto.AssignmentId);
 
             // Write in console that a topic has been added
-            System.Console.WriteLine($"Topic '{topicDto.Name}' added to Assignment ID {topicDto.AssignmentId}");
+            System.Console.WriteLine($"Topic '{createTopicDto.Name}' added to Assignment ID {createTopicDto.AssignmentId}");
             return Ok();
         }
 
