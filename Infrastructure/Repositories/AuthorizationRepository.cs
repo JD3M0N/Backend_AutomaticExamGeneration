@@ -16,10 +16,11 @@ namespace Infrastructure.Repositories
 
         public async Task<bool> CanAddQuestionAsync(int professorId, int topicId)
         {
-            return await _context.Own
-                .Where(o => o.TopicId == topicId)
-                .AnyAsync(o => _context.Assignment
-                    .Where(a => a.Id == o.AssignmentId)
+            // Check if the topic belongs to an assignment that the professor teaches
+            return await _context.Topic
+                .Where(t => t.Id == topicId)
+                .AnyAsync(t => _context.Assignment
+                    .Where(a => a.Id == t.AssignmentId)
                     .Any(a => a.ProfessorId == professorId));
         }
     }

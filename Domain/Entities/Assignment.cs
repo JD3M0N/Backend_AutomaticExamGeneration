@@ -25,7 +25,7 @@ namespace Domain.Entities
         public ICollection<Exam> Exams { get; set; } = new List<Exam>();
         public ICollection<Enroll> Enrolls { get; set; } = new List<Enroll>();
         public ICollection<Teach> Teaches { get; set; } = new List<Teach>();
-        public ICollection<Own> Owns { get; set; } = new List<Own>();
+        public ICollection<Topic> Topics { get; set; } = new List<Topic>();
     }
 
 }

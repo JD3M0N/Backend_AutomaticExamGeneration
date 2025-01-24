@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Infrastructure.Dtos;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -21,10 +22,18 @@ namespace Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Topic>> GetAllTopicsAsync()
+        public async Task<IEnumerable<TopicDto>> GetAllTopicsAsync()
         {
-            return await _context.Topic.ToListAsync();
+            return await _context.Topic
+                .Include(t => t.Assignment)
+                .Select(t => new TopicDto
+                {
+                    Name = t.Name,
+                    AssignmentName = t.Assignment.Name
+                })
+                .ToListAsync();
         }
+
 
         public async Task DeleteTopicAsync(int id)
         {
@@ -44,7 +53,9 @@ namespace Infrastructure.Repositories
 
         public async Task<Topic> GetTopicByIdAsync(int id)
         {
-            return await _context.Topic.FindAsync(id);
+            return await _context.Topic
+                .Include(t => t.Assignment) // Incluir la relación con Assignment
+                .FirstOrDefaultAsync(t => t.Id == id);
         }
 
         public async Task<Topic> GetTopicByNameAsync(string name) 

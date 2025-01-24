@@ -22,81 +22,85 @@ namespace Infrastructure
         public DbSet<Enroll> Enroll { get; set; }
         public DbSet<Enter> Enter { get; set; }
         public DbSet<Teach> Teach { get; set; }
-        public DbSet<Own> Own { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configurar la tabla para Student
+            //Configuring the table for Student
             modelBuilder.Entity<Student>()
                 .ToTable("Student");
 
-            // Configurar la tabla para Topic
+            // Configuring the table for Professor
             modelBuilder.Entity<Topic>()
                 .ToTable("Topic");
 
-            // Configurar la tabla para Question
+            // Configuring the table for Question
             modelBuilder.Entity<Question>()
                 .ToTable("Question");
 
-            // Configurar la tabla para Assignment
+            // Configuring the table for Assignment
             modelBuilder.Entity<Assignment>()
                 .ToTable("Assignment");
 
-            // Configurar la tabla para Exam
+            // Configuring the table for Exam
             modelBuilder.Entity<Exam>()
                 .ToTable("Exam");
 
-            // Configurar la tabla para Response
+            // Configuring the table for Response
             modelBuilder.Entity<Response>()
                 .ToTable("Response");
 
-            // Configurar la tabla para Belong
+            // Configuring the table for Belong
             modelBuilder.Entity<Belong>()
                 .ToTable("Belong");
 
-            // Configurar la tabla para Enroll
+            // Configuring the table for Enroll
             modelBuilder.Entity<Enroll>()
                 .ToTable("Enroll");
 
-            // Configurar la tabla para Enter
+            // Configuring the table for Enter
             modelBuilder.Entity<Enter>()
                 .ToTable("Enter");
 
-            // Configurar la tabla para Teach
+            // Configuring the table for Teach
             modelBuilder.Entity<Teach>()
                 .ToTable("Teach");
 
-            // Configurar la tabla para Own
-            modelBuilder.Entity<Own>()
-                .ToTable("Own");
+            // Configuring the table for Topic
+            // If an assignment is deleted, all its topics are deleted. Topic is weak entity of assigmnet
+            modelBuilder.Entity<Topic>()
+                .ToTable("Topic")
+                .HasOne(t => t.Assignment)
+                .WithMany(a => a.Topics)
+                .HasForeignKey(t => t.AssignmentId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            // Configurar la relación entre Question y Topic
+            // Configuring the relationship between Question and Topic
             modelBuilder.Entity<Question>()
                 .HasOne(q => q.Topic)
                 .WithMany(t => t.Questions)
                 .HasForeignKey(q => q.TopicId);
 
-            // Configurar la relación entre Assignment y Professor
+            // Configuring the relationship between Assignment and Professor
             modelBuilder.Entity<Assignment>()
                 .HasOne(a => a.Professor)
                 .WithOne()
                 .HasForeignKey<Assignment>(a => a.ProfessorId);
 
-            // Configurar la relación entre Exam y Assignment
+            // Configuring the relationship between Exam and Assignment
             modelBuilder.Entity<Exam>()
                 .HasOne(e => e.Assignment)
                 .WithMany(a => a.Exams)
                 .HasForeignKey(e => e.AssignmentId);
 
-            // Configurar la relación entre Exam y Professor
+            // Configuring the relationship between Exam and Professor
             modelBuilder.Entity<Exam>()
                 .HasOne(e => e.Professor)
                 .WithMany(p => p.Exams)
                 .HasForeignKey(e => e.ProfessorId);
 
-            // Configurar la relación many-to-many entre Question y Exam usando Belong
+            // Configuring the many-to-many relationship between Question and Exam using Belong
             modelBuilder.Entity<Belong>()
                 .HasOne(b => b.Question)
                 .WithMany(q => q.Belongs)
@@ -107,7 +111,7 @@ namespace Infrastructure
                 .WithMany(e => e.Belongs)
                 .HasForeignKey(b => b.ExamId);
 
-            // Configurar la relación many-to-many entre Student y Assignment usando Enroll
+            // Configuring the many-to-many relationship between Student and Assignment using Enroll
             modelBuilder.Entity<Enroll>()
                 .HasOne(e => e.Student)
                 .WithMany(s => s.Enrolls)
@@ -118,7 +122,7 @@ namespace Infrastructure
                 .WithMany(a => a.Enrolls)
                 .HasForeignKey(e => e.AssignmentId);
 
-            // Configurar la relación entre Professor y Question usando Enter
+            // Configuring the relationship between Professor and Question using Enter
             modelBuilder.Entity<Enter>()
                 .HasOne(e => e.Professor)
                 .WithMany(p => p.Enters)
@@ -129,16 +133,6 @@ namespace Infrastructure
                 .WithMany(q => q.Enters)
                 .HasForeignKey(e => e.QuestionId);
 
-            // Configurar la relación many-to-many entre Assignment y Topic usando Own
-            modelBuilder.Entity<Own>()
-                .HasOne(o => o.Assignment)
-                .WithMany(a => a.Owns)
-                .HasForeignKey(o => o.AssignmentId);
-
-            modelBuilder.Entity<Own>()
-                .HasOne(o => o.Topic)
-                .WithMany(t => t.Owns)
-                .HasForeignKey(o => o.TopicId);
         }
     }
 }
