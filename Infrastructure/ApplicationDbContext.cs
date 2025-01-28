@@ -100,7 +100,7 @@ namespace Infrastructure
                 .WithMany(p => p.Exams)
                 .HasForeignKey(e => e.ProfessorId);
 
-            // Configuring the many-to-many relationship between Question and Exam using Belong
+            // Configurar la relación many-to-many entre Question y Exam usando Belong
             modelBuilder.Entity<Belong>()
                 .HasOne(b => b.Question)
                 .WithMany(q => q.Belongs)
@@ -110,6 +110,24 @@ namespace Infrastructure
                 .HasOne(b => b.Exam)
                 .WithMany(e => e.Belongs)
                 .HasForeignKey(b => b.ExamId);
+
+            //modelBuilder.Entity<Belong>()
+            //    .ToTable("Belong")
+            //    .Property(b => b.QuestionId)
+            //    .HasColumnName("Q_ID");
+
+            // Configuring the many-to-many relationship between Question and Exam using Belong
+            //modelBuilder.Entity<Belong>()
+            //    .HasOne(b => b.Exam)
+            //    .WithMany()
+            //    .HasForeignKey(b => b.ExamId)
+            //    .OnDelete(DeleteBehavior.Cascade); // Elimina los belongs si se elimina el examen
+
+            //modelBuilder.Entity<Belong>()
+            //    .HasOne(b => b.Question)
+            //    .WithMany()
+            //    .HasForeignKey(b => b.QuestionId)
+            //    .OnDelete(DeleteBehavior.Restrict); // No elimina preguntas al eliminar belongs
 
             // Configuring the many-to-many relationship between Student and Assignment using Enroll
             modelBuilder.Entity<Enroll>()

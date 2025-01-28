@@ -21,16 +21,22 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddExam([FromBody] ExamDto examDto)
         {
+            if (examDto == null)
+                return BadRequest("Invalid data.");
+
             var exam = new Exam
             {
+
                 AssignmentId = examDto.AssignmentId,
                 ProfessorId = examDto.ProfessorId,
-                PPT = examDto.PPT,
-                CT = examDto.CT,
-                CTP = examDto.CTP,
-                Date = examDto.Date
+                Date = examDto.Date,
+                TotalQuestions = examDto.TotalQuestions,
+                Difficulty = examDto.Difficulty,
+                TopicLimit = examDto.TopicLimit
             };
 
+            // Write in console what exam has been added to what assignment
+            System.Console.WriteLine($"Exam added to Assignment ID {exam.AssignmentId}");
             await _examService.AddExamAsync(exam);
             return Ok(exam);
         }
@@ -61,12 +67,14 @@ namespace WebAPI.Controllers
                 Id = id,
                 AssignmentId = examDto.AssignmentId,
                 ProfessorId = examDto.ProfessorId,
-                PPT = examDto.PPT,
-                CT = examDto.CT,
-                CTP = examDto.CTP,
-                Date = examDto.Date
+                Date = examDto.Date,
+                TotalQuestions = examDto.TotalQuestions,
+                Difficulty = examDto.Difficulty,
+                TopicLimit = examDto.TopicLimit
             };
 
+            // Write in console that an exam has been updated
+            System.Console.WriteLine($"Exam ID {id} updated");
             await _examService.UpdateExamAsync(exam);
             return Ok(exam);
         }

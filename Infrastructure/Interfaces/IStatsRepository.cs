@@ -7,5 +7,6 @@ namespace Infrastructure.Interfaces
     public interface IStatsRepository
     {
         Task<IEnumerable<ExamStatsDto>> GetExamsByAssignmentAsync(int assignmentId);
+        Task<IEnumerable<ExamStatsDto>> GetExamsByAssignmentNameAsync(string assignmentName);
     }
 }

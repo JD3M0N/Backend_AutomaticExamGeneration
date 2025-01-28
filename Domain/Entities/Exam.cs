@@ -19,22 +19,20 @@ namespace Domain.Entities
         [Column("P_ID")]
         public int ProfessorId { get; set; }
 
-        [Column("PPT")]
-        public string PPT { get; set; }
-
-        [Column("CT")]
-        public string CT { get; set; }
-
-        [Column("CTP")]
-        public string CTP { get; set; }
-
         [Column("Creation_Date")]
         public DateTime Date { get; set; }
 
+        [Column("Total_Questions")]
+        public int TotalQuestions { get; set; }
+
+        [Column("Difficulty")]
+        public int Difficulty { get; set; }
+
+        [Column("Topic_Limit")]
+        public int? TopicLimit { get; set; }
+
         public Assignment Assignment { get; set; }
         public Professor Professor { get; set; }
-        public ICollection<Question> Questions { get; set; } = new List<Question>();
         public ICollection<Belong> Belongs { get; set; } = new List<Belong>();
-
     }
 }

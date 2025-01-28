@@ -21,7 +21,9 @@ namespace Infrastructure.Repositories
                 .Where(t => t.Id == topicId)
                 .AnyAsync(t => _context.Assignment
                     .Where(a => a.Id == t.AssignmentId)
-                    .Any(a => a.ProfessorId == professorId));
+                    .Any(a => a.ProfessorId == professorId ||
+                              _context.Teach.Any(te => te.AssignmentId == a.Id && te.ProfessorId == professorId)));
         }
+
     }
 }

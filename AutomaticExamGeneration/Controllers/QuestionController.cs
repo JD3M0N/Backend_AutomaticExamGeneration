@@ -48,8 +48,8 @@ namespace WebAPI.Controllers
 
             await _questionService.AddQuestionAsync(question);
 
-            //Write in console that a question has been added
-            System.Console.WriteLine($"Pregunta '{question.QuestionText}' añadida correctamente.");
+            //Write in console that a question has been added, by what professor to what topic
+            System.Console.WriteLine($"Pregunta añadida por profesor {questionDto.ProfessorId} al tema {questionDto.TopicId}");
             return Ok(question);
         }
 

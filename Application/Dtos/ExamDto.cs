@@ -4,9 +4,10 @@ namespace Application.Dtos
     {
         public int AssignmentId { get; set; }
         public int ProfessorId { get; set; }
-        public string PPT { get; set; }
-        public string CT { get; set; }
-        public string CTP { get; set; }
         public DateTime Date { get; set; }
+        public int TotalQuestions { get; set; }
+        public int Difficulty { get; set; }
+        public int? TopicLimit { get; set; }
     }
+
 }

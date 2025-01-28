@@ -21,7 +21,19 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<IEnumerable<ExamStatsDto>>> GetExamsByAssignment(int assignmentId)
         {
             var stats = await _statsService.GetExamsByAssignmentAsync(assignmentId);
+            // Write in console that we are getting exams by assignment ID
+            System.Console.WriteLine($"Getting exams by Assignment ID {assignmentId}");
+            return Ok(stats);
+        }
+
+        [HttpGet("exams-by-assignment-name/{assignmentName}")]
+        public async Task<ActionResult<IEnumerable<ExamStatsDto>>> GetExamsByAssignmentName(string assignmentName)
+        {
+            var stats = await _statsService.GetExamsByAssignmentNameAsync(assignmentName);
+            // Write in console that we are getting exams by assignment name
+            System.Console.WriteLine($"Getting exams by Assignment Name {assignmentName}");
             return Ok(stats);
         }
     }
 }
+

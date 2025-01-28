@@ -26,9 +26,9 @@ namespace Infrastructure.Repositories
                     ExamId = e.Id,
                     ProfessorName = e.Professor.Name,
                     CreationDate = e.Date,
-                    PPT = e.PPT,
-                    CT = e.CT,
-                    CTP = e.CTP
+                    TotalQuestions = e.TotalQuestions,
+                    Difficulty = e.Difficulty,
+                    TopicLimit = e.TopicLimit
                 })
                 .ToListAsync();
         }
@@ -44,12 +44,13 @@ namespace Infrastructure.Repositories
                                     ExamId = e.Id,
                                     ProfessorName = p.Name,
                                     CreationDate = e.Date,
-                                    PPT = e.PPT,
-                                    CT = e.CT,
-                                    CTP = e.CTP
+                                    TotalQuestions = e.TotalQuestions,
+                                    Difficulty = e.Difficulty,
+                                    TopicLimit = e.TopicLimit
                                 }).ToListAsync();
 
             return result;
         }
     }
+
 }

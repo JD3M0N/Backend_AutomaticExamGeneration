@@ -14,4 +14,5 @@ namespace Application.Interfaces
         Task AddQuestionToExamAsync(int examId, int questionId);
         Task<IEnumerable<Question>> GetQuestionsForExamAsync(int examId);
     }
+
 }

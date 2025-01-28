@@ -11,7 +11,7 @@ namespace Application.Services
         private readonly IStatsRepository _statsRepository;
 
         public StatsService(IStatsRepository statsRepository)
-        { 
+        {
             _statsRepository = statsRepository;
         }
 
@@ -19,5 +19,11 @@ namespace Application.Services
         {
             return await _statsRepository.GetExamsByAssignmentAsync(assignmentId);
         }
+
+        public async Task<IEnumerable<ExamStatsDto>> GetExamsByAssignmentNameAsync(string assignmentName)
+        {
+            return await _statsRepository.GetExamsByAssignmentNameAsync(assignmentName);
+        }
     }
+
 }
