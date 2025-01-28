@@ -18,7 +18,7 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Response>> GetResponseAsync()
+        public async Task<IEnumerable<Response>> GetAllResponsesAsync()
         {
             return await _context.Response.ToListAsync();
         }

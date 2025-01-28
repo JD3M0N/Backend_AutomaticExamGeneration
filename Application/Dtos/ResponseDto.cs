@@ -9,9 +9,10 @@ namespace Application.Dtos
 {
     public class ResponseDto
     {
-        public int StudentId { get; set; }
-        public int ExamId { get; set; }
-        public DateTime Date { get; set; }
-        public string Solution { get; set; }
+        public int StudentId { get; set; } // Foreign key to Student
+        public int QuestionId { get; set; } // Foreign key to Question
+        public int ExamId { get; set; } // Foreign key to Exam
+        public string Answer { get; set; } // Student's answer
     }
 }
+

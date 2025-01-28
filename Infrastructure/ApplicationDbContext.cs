@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
+using System.Diagnostics;
 
 namespace Infrastructure
 {
@@ -22,6 +23,9 @@ namespace Infrastructure
         public DbSet<Enroll> Enroll { get; set; }
         public DbSet<Enter> Enter { get; set; }
         public DbSet<Teach> Teach { get; set; }
+        public DbSet<Grade> Grades { get; set; }
+        public DbSet<Regrade> Regrades { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -67,6 +71,14 @@ namespace Infrastructure
             modelBuilder.Entity<Teach>()
                 .ToTable("Teach");
 
+            // Configuring the table for Grade
+            modelBuilder.Entity<Grade>()
+                .ToTable("Grade");
+
+            // Configuring the table for Regrade
+            modelBuilder.Entity<Regrade>()
+                .ToTable("Regrade");
+
             // Configuring the table for Topic
             // If an assignment is deleted, all its topics are deleted. Topic is weak entity of assigmnet
             modelBuilder.Entity<Topic>()
@@ -110,24 +122,6 @@ namespace Infrastructure
                 .HasOne(b => b.Exam)
                 .WithMany(e => e.Belongs)
                 .HasForeignKey(b => b.ExamId);
-
-            //modelBuilder.Entity<Belong>()
-            //    .ToTable("Belong")
-            //    .Property(b => b.QuestionId)
-            //    .HasColumnName("Q_ID");
-
-            // Configuring the many-to-many relationship between Question and Exam using Belong
-            //modelBuilder.Entity<Belong>()
-            //    .HasOne(b => b.Exam)
-            //    .WithMany()
-            //    .HasForeignKey(b => b.ExamId)
-            //    .OnDelete(DeleteBehavior.Cascade); // Elimina los belongs si se elimina el examen
-
-            //modelBuilder.Entity<Belong>()
-            //    .HasOne(b => b.Question)
-            //    .WithMany()
-            //    .HasForeignKey(b => b.QuestionId)
-            //    .OnDelete(DeleteBehavior.Restrict); // No elimina preguntas al eliminar belongs
 
             // Configuring the many-to-many relationship between Student and Assignment using Enroll
             modelBuilder.Entity<Enroll>()

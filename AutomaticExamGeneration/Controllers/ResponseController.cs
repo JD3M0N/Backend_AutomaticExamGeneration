@@ -18,49 +18,56 @@ namespace WebAPI.Controllers
             _responseService = responseService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddResponse([FromBody] ResponseDto responseDto)
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ResponseDto>>> GetAllResponses()
         {
+            var responses = await _responseService.GetAllResponsesAsync();
 
-            var response = new Response
-            {
-                StudentId = responseDto.StudentId,
-                ExamId = responseDto.ExamId,
-                Date = responseDto.Date,
-                Solution = responseDto.Solution
-            };
+            // Write in console the number of responses
+            Console.WriteLine($"Number of responses: {responses.Count()}");
+            return Ok(responses);
+        }
 
-            await _responseService.AddResponseAsync(response);
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ResponseDto>> GetResponseById(int id)
+        {
+            var response = await _responseService.GetResponseByIdAsync(id);
+            if (response == null)
+                return NotFound();
+
+            // Write in console the response
+            Console.WriteLine($"Response: {response}");
+
             return Ok(response);
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Response>>> GetAllResponses()
+        [HttpPost]
+        public async Task<IActionResult> AddResponse([FromBody] ResponseDto responseDto)
         {
-            var responses = await _responseService.GetResponseAsync();
-            return Ok(responses);
+            await _responseService.AddResponseAsync(responseDto);
+
+            // Write in console the response added
+            Console.WriteLine($"Response added: {responseDto}");
+            return Ok();
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateResponse(int id, [FromBody] ResponseDto responseDto)
         {
-            var response = new Response
-            {
-                Id = id,
-                StudentId = responseDto.StudentId,
-                ExamId = responseDto.ExamId,
-                Date = responseDto.Date,
-                Solution = responseDto.Solution
-            };
+            await _responseService.UpdateResponseAsync(id, responseDto);
 
-            await _responseService.UpdateResponseAsync(response);
-            return Ok(response);
+            // Write in console the response updated
+            Console.WriteLine($"Response updated: {responseDto}");
+            return Ok();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteResponse(int id)
         {
             await _responseService.DeleteResponseAsync(id);
+
+            // Write in console the response deleted
+            Console.WriteLine($"Response deleted: {id}");
             return Ok();
         }
     }

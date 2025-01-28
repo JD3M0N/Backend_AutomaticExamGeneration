@@ -27,7 +27,9 @@ namespace Web.Controllers
                     return BadRequest("Invalid data.");
                 }
 
-                await _belongService.AddBelongAsync(belongDto);
+            //Write in console what belong has been added to what exam
+            System.Console.WriteLine($"Question ID {belongDto.Q_ID} added to Exam ID {belongDto.X_ID}");
+            await _belongService.AddBelongAsync(belongDto);
                 return Ok("Belong relationship added successfully.");
             }
         }

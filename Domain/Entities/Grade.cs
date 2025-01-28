@@ -3,12 +3,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities
 {
-    public class Response
+    public class Grade
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("R_ID")]
+        [Column("G_ID")]
         public int Id { get; set; }
+
+        [Column("P_ID")]
+        public int ProfessorId { get; set; } // Foreign key to Professor
+        public Professor Professor { get; set; } // Navigation property
 
         [Column("ST_ID")]
         public int StudentId { get; set; } // Foreign key to Student
@@ -22,7 +26,7 @@ namespace Domain.Entities
         public int ExamId { get; set; } // Foreign key to Exam
         public Exam Exam { get; set; } // Navigation property
 
-        [Column("Answer")]
-        public string Answer { get; set; } // Student's answer
+        [Column("Grade")]
+        public int GradeValue { get; set; } // Grade given to the question
     }
 }

@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Dtos;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,10 @@ namespace Application.Interfaces
 {
     public interface IResponseService
     {
-        Task<IEnumerable<Response>> GetResponseAsync();
-        Task AddResponseAsync(Response response);
-        Task UpdateResponseAsync(Response response);
+        Task<IEnumerable<ResponseDto>> GetAllResponsesAsync();
+        Task<ResponseDto> GetResponseByIdAsync(int id);
+        Task AddResponseAsync(ResponseDto responseDto);
+        Task UpdateResponseAsync(int id, ResponseDto responseDto);
         Task DeleteResponseAsync(int id);
     }
 }

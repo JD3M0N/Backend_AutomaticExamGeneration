@@ -9,7 +9,7 @@ namespace Infrastructure.Interfaces
 {
     public interface IResponseRepository
     {
-        Task<IEnumerable<Response>> GetResponseAsync();
+        Task<IEnumerable<Response>> GetAllResponsesAsync();
         Task<Response> GetResponseByIdAsync(int id);
         Task AddResponseAsync(Response response);
         Task UpdateResponseAsync(Response response);
