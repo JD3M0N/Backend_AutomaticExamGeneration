@@ -25,6 +25,8 @@ namespace Infrastructure
         public DbSet<Teach> Teach { get; set; }
         public DbSet<Grade> Grades { get; set; }
         public DbSet<Regrade> Regrades { get; set; }
+        public DbSet<RequestRegrade> RequestRegrade { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -78,6 +80,10 @@ namespace Infrastructure
             // Configuring the table for Regrade
             modelBuilder.Entity<Regrade>()
                 .ToTable("Regrade");
+
+            // Configuring the table for RequestRegrade
+            modelBuilder.Entity<RequestRegrade>()
+                .ToTable("Request_Regrade");
 
             // Configuring the table for Topic
             // If an assignment is deleted, all its topics are deleted. Topic is weak entity of assigmnet
