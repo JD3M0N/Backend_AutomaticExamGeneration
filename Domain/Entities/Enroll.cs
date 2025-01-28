@@ -7,11 +7,11 @@ namespace Domain.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("E_ID")]
+        [Column("Enroll_ID")]
         public int Id { get; set; }
 
         [ForeignKey("Student")]
-        [Column("S_ID")]
+        [Column("ST_ID")]
         public int StudentId { get; set; }
         public Student Student { get; set; }
 

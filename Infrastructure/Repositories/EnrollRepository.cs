@@ -30,6 +30,15 @@ namespace Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Student>> GetStudentsByAssignmentIdAsync(int assignmentId)
+        {
+            return await _context.Enroll
+                .Where(e => e.AssignmentId == assignmentId)
+                .Select(e => e.Student)
+                .ToListAsync();
+        }
+
+
         public async Task DeleteEnrollAsync(int studentId, int assignmentId)
         {
             var enroll = await _context.Enroll
