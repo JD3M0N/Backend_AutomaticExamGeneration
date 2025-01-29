@@ -13,6 +13,7 @@ namespace Application.Interfaces
         Task DeleteExamAsync(int id);
         Task AddQuestionToExamAsync(int examId, int questionId);
         Task<IEnumerable<Question>> GetQuestionsForExamAsync(int examId);
+        Task UpdateExamStateAsync(int examId, string state);
     }
 
 }

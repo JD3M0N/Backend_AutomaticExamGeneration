@@ -8,6 +8,7 @@ namespace Application.Dtos
         public int TotalQuestions { get; set; }
         public int Difficulty { get; set; }
         public int? TopicLimit { get; set; }
+        public string State { get; set; }
     }
 
 }

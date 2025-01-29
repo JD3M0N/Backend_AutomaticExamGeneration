@@ -49,5 +49,10 @@ namespace Application.Services
         {
             return await _examRepository.GetQuestionsForExamAsync(examId);
         }
+
+        public async Task UpdateExamStateAsync(int examId, string state)
+        {
+            await _examRepository.UpdateExamStateAsync(examId, state);
+        }
     }
 }

@@ -31,6 +31,9 @@ namespace Domain.Entities
         [Column("Topic_Limit")]
         public int? TopicLimit { get; set; }
 
+        [Column("State")]
+        public string State { get; set; }
+
         public Assignment Assignment { get; set; }
         public Professor Professor { get; set; }
         public ICollection<Belong> Belongs { get; set; } = new List<Belong>();

@@ -24,6 +24,13 @@ namespace WebAPI.Controllers
             if (examDto == null)
                 return BadRequest("Invalid data.");
 
+            bool validState = false;
+
+            if (examDto.State == "validated" || examDto.State == "denied")
+            {
+                validState = true;
+            }
+
             var exam = new Exam
             {
 
@@ -32,7 +39,9 @@ namespace WebAPI.Controllers
                 Date = examDto.Date,
                 TotalQuestions = examDto.TotalQuestions,
                 Difficulty = examDto.Difficulty,
-                TopicLimit = examDto.TopicLimit
+                TopicLimit = examDto.TopicLimit,
+                //if it is not a valid state then the value will be null
+                State = validState ? examDto.State : "null"
             };
 
             // Write in console what exam has been added to what assignment
@@ -62,6 +71,13 @@ namespace WebAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateExam(int id, [FromBody] ExamDto examDto)
         {
+            bool validState = false;
+
+            if (examDto.State == "validated" || examDto.State == "denied")
+            {
+                validState = true;
+            }
+
             var exam = new Exam
             {
                 Id = id,
@@ -70,7 +86,9 @@ namespace WebAPI.Controllers
                 Date = examDto.Date,
                 TotalQuestions = examDto.TotalQuestions,
                 Difficulty = examDto.Difficulty,
-                TopicLimit = examDto.TopicLimit
+                TopicLimit = examDto.TopicLimit,
+                //if it is not a valid state then the value will be null
+                State = validState ? examDto.State : "null"
             };
 
             // Write in console that an exam has been updated
@@ -85,5 +103,17 @@ namespace WebAPI.Controllers
             await _examService.DeleteExamAsync(id);
             return Ok();
         }
+
+        [HttpPatch("{id}/state")]
+        public async Task<IActionResult> UpdateExamState(int id, [FromBody] string state)
+        {
+            await _examService.UpdateExamStateAsync(id, state);
+
+            // Write in console that the state of an exam has been updated
+            System.Console.WriteLine($"State of Exam ID {id} updated to {state}");
+
+            return Ok();
+        }
+
     }
 }

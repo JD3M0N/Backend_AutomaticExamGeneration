@@ -66,5 +66,15 @@ namespace Infrastructure.Repositories
                 .Select(b => b.Question)
                 .ToListAsync();
         }
+
+        public async Task UpdateExamStateAsync(int examId, string state)
+        {
+            var exam = await _context.Exam.FindAsync(examId);
+            if (exam != null)
+            {
+                exam.State = state;
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }
