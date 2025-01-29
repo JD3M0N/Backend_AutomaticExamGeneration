@@ -2,6 +2,6 @@
 {
     public interface ITokenService
     {
-        string GenerateToken(int userId, string userType, int? professorId = null);
+        string GenerateToken(int userId, string userType, int? professorId = null, bool isHeadOfAssignment = false);
     }
 }

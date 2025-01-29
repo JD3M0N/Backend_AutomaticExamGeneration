@@ -37,19 +37,20 @@ namespace Application.Services
                 return new AuthResultDto(true, "Admin", token);
             }
 
-            // Verificar en Professor
-            //var professor = await _professorRepository.GetProfessorByEmailAsync(loginDto.Email);
-            //if (professor != null && VerifyPassword(loginDto.Password, professor.Password))
-            //{
-            //    var token = _tokenService.GenerateToken(professor.Id, "Professor");
-            //    return new AuthResultDto(true, "Professor", token);
-            //}
 
             // Verificar en Professor
             var professor = await _professorRepository.GetProfessorByEmailAsync(loginDto.Email);
             if (professor != null && VerifyPassword(loginDto.Password, professor.Password))
             {
-                var token = _tokenService.GenerateToken(professor.Id, "Professor", professor.Id); // Pasa el professorId
+
+
+                // Verificar si es jefe de asignatura
+                bool isHeadOfAssignment = await _professorRepository.IsHeadOfAssignmentAsync(professor.Id);
+
+                // Generar el token con el nuevo claim
+                var token = _tokenService.GenerateToken(professor.Id, "Professor", professor.Id, isHeadOfAssignment);
+
+                //var token = _tokenService.GenerateToken(professor.Id, "Professor", professor.Id); // Pasa el professorId
                 return new AuthResultDto(true, "Professor", token);
             }
 

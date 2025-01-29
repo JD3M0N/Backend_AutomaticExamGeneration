@@ -22,15 +22,15 @@ namespace Application.Services
             }
         }
 
-        public string GenerateToken(int userId, string userType, int? professorId = null)
+        public string GenerateToken(int userId, string userType, int? professorId = null, bool isHeadOfAssignment = false)
         {
             var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, userId.ToString()), // ID del usuario
-                new Claim(ClaimTypes.Role, userType) // Tipo de usuario (Admin, Professor, Student)
-            };
+    {
+        new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+        new Claim(ClaimTypes.Role, userType),
+        new Claim("IsHeadOfAssignment", isHeadOfAssignment.ToString()) // Nuevo claim
+    };
 
-            // Agregar el professorId si el usuario es un profesor
             if (professorId.HasValue)
             {
                 claims.Add(new Claim("professorId", professorId.Value.ToString()));
@@ -43,7 +43,7 @@ namespace Application.Services
                 issuer: "yourdomain.com",
                 audience: "yourdomain.com",
                 claims: claims,
-                expires: DateTime.Now.AddHours(2), // Configurar tiempo de expiración
+                expires: DateTime.UtcNow.AddHours(2),
                 signingCredentials: creds
             );
 

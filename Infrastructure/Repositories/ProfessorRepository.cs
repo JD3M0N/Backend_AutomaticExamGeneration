@@ -51,5 +51,10 @@ namespace Infrastructure.Repositories
         {
             return await _context.Professor.FirstOrDefaultAsync(a => a.Email == email);
         }
+
+        public async Task<bool> IsHeadOfAssignmentAsync(int professorId)
+        {
+            return await _context.Assignment.AnyAsync(a => a.ProfessorId == professorId);
+        }
     }
 }
