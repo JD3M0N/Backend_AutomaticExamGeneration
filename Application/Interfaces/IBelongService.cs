@@ -10,6 +10,10 @@ namespace Application.Interfaces
 {
     public interface IBelongService
     {
+        Task<IEnumerable<BelongSimpleDto>> GetAllBelongsAsync();
+        Task<BelongSimpleDto> GetBelongByIdAsync(int id);
         Task AddBelongAsync(BelongDto belongDto);
+        Task UpdateBelongAsync(Belong belong);
+        Task DeleteBelongAsync(int id);
     }
 }

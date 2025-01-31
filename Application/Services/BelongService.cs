@@ -19,6 +19,33 @@ namespace Application.Services
             _belongRepository = belongRepository;
         }
 
+        public async Task<IEnumerable<BelongSimpleDto>> GetAllBelongsAsync()
+        {
+            var belongs = await _belongRepository.GetAllBelongsAsync();
+            return belongs.Select(b => new BelongSimpleDto
+            {
+                Id = b.Id,
+                QuestionId = b.QuestionId,
+                ExamId = b.ExamId
+            });
+        }
+
+        public async Task<BelongSimpleDto> GetBelongByIdAsync(int id)
+        {
+            var belong = await _belongRepository.GetBelongByIdAsync(id);
+            if (belong == null)
+            {
+                return null;
+            }
+
+            return new BelongSimpleDto
+            {
+                Id = belong.Id,
+                QuestionId = belong.QuestionId,
+                ExamId = belong.ExamId
+            };
+        }
+
         public async Task AddBelongAsync(BelongDto belongDto)
         {
             var belong = new Belong
@@ -29,6 +56,16 @@ namespace Application.Services
 
             await _belongRepository.AddBelongAsync(belong);
             await _belongRepository.SaveChangesAsync();
+        }
+
+        public async Task UpdateBelongAsync(Belong belong)
+        {
+            await _belongRepository.UpdateBelongAsync(belong);
+        }
+
+        public async Task DeleteBelongAsync(int id)
+        {
+            await _belongRepository.DeleteBelongAsync(id);
         }
     }
 
