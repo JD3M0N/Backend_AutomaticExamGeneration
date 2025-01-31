@@ -1,6 +1,7 @@
 using Domain.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Infrastructure.Dtos;
 
 namespace Application.Interfaces
 {
@@ -14,6 +15,7 @@ namespace Application.Interfaces
         Task AddQuestionToExamAsync(int examId, int questionId);
         Task<IEnumerable<Question>> GetQuestionsForExamAsync(int examId);
         Task UpdateExamStateAsync(int examId, string state);
+        Task<Exam> GenerateExamAsync(ExamGenerationRequestDto request);
     }
 
 }

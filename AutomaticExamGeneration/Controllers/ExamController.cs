@@ -2,6 +2,7 @@ using Application.Interfaces;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Application.Dtos;
+using Infrastructure.Dtos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -113,6 +114,17 @@ namespace WebAPI.Controllers
             System.Console.WriteLine($"State of Exam ID {id} updated to {state}");
 
             return Ok();
+        }
+
+        [HttpPost("generate")]
+        public async Task<IActionResult> GenerateExam([FromBody] ExamGenerationRequestDto request)
+        {
+            var exam = await _examService.GenerateExamAsync(request);
+
+            // Write in console that an exam has been generated
+            System.Console.WriteLine($"Exam generated for Assignment ID {request.AssignmentId}");
+
+            return Ok(exam);
         }
 
     }

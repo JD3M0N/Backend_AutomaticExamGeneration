@@ -12,5 +12,6 @@ namespace Infrastructure.Interfaces
         Task UpdateQuestionAsync(Question question);
         Task<Question> GetQuestionByIdAsync(int id);
         Task AddEnterAsync(Enter enter);
+        Task<Question> GetQuestionByTopicAndDifficultyAsync(int topicId, int difficulty);
     }
 }

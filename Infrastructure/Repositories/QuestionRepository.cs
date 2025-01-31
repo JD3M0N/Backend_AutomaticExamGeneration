@@ -51,5 +51,13 @@ namespace Infrastructure.Repositories
             await _context.Enter.AddAsync(enter);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<Question> GetQuestionByTopicAndDifficultyAsync(int topicId, int difficulty)
+        {
+            return await _context.Questions
+                .Where(q => q.TopicId == topicId && q.Difficulty == difficulty)
+                .OrderBy(r => Guid.NewGuid()) // Selección aleatoria entre las posibles
+                .FirstOrDefaultAsync();
+        }
     }
 }
