@@ -28,6 +28,7 @@ namespace Infrastructure.Repositories
                 .Include(t => t.Assignment) 
                 .Select(t => new TopicDto
                 {
+                    Id = t.Id,
                     Name = t.Name,
                     AssignmentId = t.AssignmentId,
                     AssignmentName = t.Assignment.Name 
