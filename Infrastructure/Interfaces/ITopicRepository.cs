@@ -13,5 +13,6 @@ namespace Infrastructure.Interfaces
         Task UpdateTopicAsync(Topic topic);
         Task<Topic> GetTopicByIdAsync(int id);
         Task<Topic> GetTopicByNameAsync(string name);
+        Task<IEnumerable<TopicDto>> GetTopicsByProfessorIdAsync(int professorId);
     }
 }

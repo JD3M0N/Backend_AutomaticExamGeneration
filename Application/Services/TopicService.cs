@@ -73,5 +73,10 @@ namespace Application.Services
             var topic = await _topicRepository.GetTopicByNameAsync(name);
             return topic?.Id;
         }
+
+        public async Task<IEnumerable<TopicDto>> GetTopicsByProfessorIdAsync(int professorId)
+        {
+            return await _topicRepository.GetTopicsByProfessorIdAsync(professorId);
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace Application.Interfaces
         Task UpdateTopicAsync(int id, string name, int assignmentId);
         Task<TopicDto> GetTopicByIdAsync(int id);
         Task<int?> GetTopicIdByNameAsync(string name);
+        Task<IEnumerable<TopicDto>> GetTopicsByProfessorIdAsync(int professorId);
     }
 }

@@ -64,5 +64,21 @@ namespace Infrastructure.Repositories
         {
             return await _context.Topic.FirstOrDefaultAsync(t => t.Name == name);
         }
+
+        public async Task<IEnumerable<TopicDto>> GetTopicsByProfessorIdAsync(int professorId)
+        {
+            return await _context.Topic
+                .Include(t => t.Assignment)
+                .Where(t => t.Assignment.ProfessorId == professorId ||
+                            _context.Teach.Any(te => te.AssignmentId == t.AssignmentId && te.ProfessorId == professorId))
+                .Select(t => new TopicDto
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    AssignmentId = t.AssignmentId,
+                    AssignmentName = t.Assignment.Name
+                })
+                .ToListAsync();
+        }
     }
 }
