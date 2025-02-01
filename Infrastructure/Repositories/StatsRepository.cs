@@ -52,6 +52,24 @@ namespace Infrastructure.Repositories
 
             return result;
         }
-    }
 
+        public async Task<IEnumerable<QuestionUsageStatsDto>> GetMostUsedQuestionsAsync(int assignmentId)
+        {
+            return await (from eq in _context.Belong
+                          join q in _context.Questions on eq.QuestionId equals q.Id
+                          join t in _context.Topic on q.TopicId equals t.Id
+                          join e in _context.Exam on eq.ExamId equals e.Id
+                          where e.AssignmentId == assignmentId
+                          group q by new { q.Id, q.QuestionText, q.Difficulty, t.Name } into g
+                          orderby g.Count() descending, g.Key.Difficulty, g.Key.Name
+                          select new QuestionUsageStatsDto
+                          {
+                              QuestionId = g.Key.Id,
+                              QuestionText = g.Key.QuestionText,
+                              Difficulty = g.Key.Difficulty,
+                              TopicName = g.Key.Name,
+                              UsageCount = g.Count()
+                          }).ToListAsync();
+        }
+    }
 }

@@ -34,6 +34,17 @@ namespace WebAPI.Controllers
             System.Console.WriteLine($"Getting exams by Assignment Name {assignmentName}");
             return Ok(stats);
         }
+
+        [HttpGet("most-used-questions/{assignmentId}")]
+        public async Task<ActionResult<IEnumerable<QuestionUsageStatsDto>>> GetMostUsedQuestions(int assignmentId)
+        {
+            var stats = await _statsService.GetMostUsedQuestionsAsync(assignmentId);
+
+            // Write in console that we are fetching most used questions by assignment ID
+            System.Console.WriteLine($"Fetching most used questions for Assignment ID {assignmentId}");
+
+            return Ok(stats);
+        }
     }
 }
 

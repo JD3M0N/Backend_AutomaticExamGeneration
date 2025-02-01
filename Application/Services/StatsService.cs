@@ -24,6 +24,9 @@ namespace Application.Services
         {
             return await _statsRepository.GetExamsByAssignmentNameAsync(assignmentName);
         }
+        public async Task<IEnumerable<QuestionUsageStatsDto>> GetMostUsedQuestionsAsync(int assignmentId)
+        {
+            return await _statsRepository.GetMostUsedQuestionsAsync(assignmentId);
+        }
     }
-
 }
