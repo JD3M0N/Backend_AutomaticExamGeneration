@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Application.Services;
+using Infrastructure.Dtos;
 
 namespace WebAPI.Controllers
 {
@@ -15,11 +16,13 @@ namespace WebAPI.Controllers
     {
         private readonly IAssignmentService _assignmentService;
         private readonly IProfessorService _professorService;
+        private readonly ITeachService _teachService;
 
-        public AssignmentController(IAssignmentService assignmentService, IProfessorService professorService)
+        public AssignmentController(IAssignmentService assignmentService, IProfessorService professorService, ITeachService teachService)
         {
             _assignmentService = assignmentService;
             _professorService = professorService;
+            _teachService = teachService;
         }
 
         [HttpPost]
@@ -33,6 +36,21 @@ namespace WebAPI.Controllers
             };
 
             await _assignmentService.AddAssignmentAsync(assignment);
+
+            // Write to the console the assignment name and ID of the professor
+            Console.WriteLine($"Assignment added: Name = {assignment.Name}, ID of professor = {assignment.ProfessorId}");
+
+            var teach = new Teach
+            {
+                ProfessorId = assignmentDto.ProfessorId,
+                AssignmentId = assignment.Id
+            };
+
+            await _teachService.AddTeachAsync(teach);
+
+            // Write to the console the ID of the assignment and the ID of the professor
+            Console.WriteLine($"Teach added: Assignment ID = {teach.AssignmentId}, Professor ID = {teach.ProfessorId}");
+
             return Ok(assignment);
         }
 
@@ -59,8 +77,19 @@ namespace WebAPI.Controllers
             // Guardar en la base de datos
             await _assignmentService.AddAssignmentAsync(assignment);
 
-            // Escribir en la consola el nombre y el ID del profesor
-            Console.WriteLine($"Professor added: Name = {professor.Name}, ID = {professor.Id}");
+            // Write to the console the assignment name and ID of the professor
+            Console.WriteLine($"Assignment added: Name = {assignment.Name}, ID of professor = {assignment.ProfessorId}");
+
+            var teach = new Teach
+            {
+                ProfessorId = professor.Id,
+                AssignmentId = assignment.Id
+            };
+
+            await _teachService.AddTeachAsync(teach);
+
+            // Write to the console the ID of the assignment and the ID of the professor
+            Console.WriteLine($"Teach added: Assignment ID = {teach.AssignmentId}, Professor ID = {teach.ProfessorId}");
 
             return Ok("Assignment added successfully.");
         }
