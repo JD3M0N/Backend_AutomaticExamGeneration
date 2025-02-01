@@ -28,7 +28,8 @@ namespace Infrastructure.Repositories
                     CreationDate = e.Date,
                     TotalQuestions = e.TotalQuestions,
                     Difficulty = e.Difficulty,
-                    TopicLimit = e.TopicLimit
+                    TopicLimit = e.TopicLimit,
+                    State = e.State
                 })
                 .ToListAsync();
         }
