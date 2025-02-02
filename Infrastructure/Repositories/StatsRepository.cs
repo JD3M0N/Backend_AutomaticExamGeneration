@@ -109,5 +109,33 @@ namespace Infrastructure.Repositories
                           .OrderByDescending(e => e.AccuracyRate) // Ordenar por tasa de acierto descendente
                           .ToListAsync();
         }
+
+        public async Task<IEnumerable<UnusedQuestionDto>> GetUnusedQuestionsAsync()
+        {
+            // Fecha límite: hace 2 años desde hoy
+            DateTime twoYearsAgo = DateTime.UtcNow.AddYears(-2);
+
+            // Obtener todas las preguntas que NO han sido usadas en exámenes en los últimos 2 años
+            var unusedQuestions = await (from q in _context.Questions
+                                         join t in _context.Topic on q.TopicId equals t.Id
+                                         join p in _context.Professor on q.ProfessorId equals p.Id
+                                         where !(from b in _context.Belong
+                                                 join e in _context.Exam on b.ExamId equals e.Id
+                                                 where e.Date >= twoYearsAgo
+                                                 select b.QuestionId)
+                                                 .Contains(q.Id)
+                                         select new UnusedQuestionDto
+                                         {
+                                             QuestionId = q.Id,
+                                             QuestionText = q.QuestionText,
+                                             Difficulty = q.Difficulty,
+                                             TopicName = t.Name,
+                                             ProfessorName = p.Name
+                                         })
+                                         .OrderBy(q => q.TopicName) // Ordenar por tema
+                                         .ToListAsync();
+
+            return unusedQuestions;
+        }
     }
 }

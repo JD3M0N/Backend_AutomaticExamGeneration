@@ -37,5 +37,9 @@ namespace Application.Services
         {
             return await _statsRepository.GetExamPerformanceAsync(examId);
         }
+        public async Task<IEnumerable<UnusedQuestionDto>> GetUnusedQuestionsAsync()
+        {
+            return await _statsRepository.GetUnusedQuestionsAsync();
+        }
     }
 }

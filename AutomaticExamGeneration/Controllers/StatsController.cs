@@ -67,6 +67,17 @@ namespace WebAPI.Controllers
 
             return Ok(examPerformance);
         }
+
+        [HttpGet("unused-questions")]
+        public async Task<ActionResult<IEnumerable<UnusedQuestionDto>>> GetUnusedQuestions()
+        {
+            var unusedQuestions = await _statsService.GetUnusedQuestionsAsync();
+
+            // Write in console that we are fetching unused questions
+            System.Console.WriteLine("Fetching unused questions");
+
+            return Ok(unusedQuestions);
+        }
     }
 }
 
