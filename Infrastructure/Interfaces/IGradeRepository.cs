@@ -12,5 +12,6 @@ namespace Infrastructure.Interfaces
         Task UpdateGradeAsync(Grade grade);
         Task DeleteGradeAsync(int id);
         Task<string> GetStudentExamGradeAsync(int studentId, int examId);
+        Task<List<object>> GetStudentGradedExamsAsync(int studentId);
     }
 }

@@ -92,5 +92,25 @@ namespace WebAPI.Controllers
 
             return Ok(new { StudentId = studentId, ExamId = examId, Grade = result });
         }
+
+        [HttpGet("student/{studentId}/graded-exams")]
+        public async Task<IActionResult> GetStudentGradedExams(int studentId)
+        {
+            var result = await _gradeService.GetStudentGradedExamsAsync(studentId);
+
+            if (result.Count == 0)
+            {
+                // Write to the console the message
+                System.Console.WriteLine("El estudiante no tiene exámenes calificados");
+
+                return NotFound(new { message = "El estudiante no tiene exámenes calificados" });
+            }
+
+            // Write to the console the student ID and the number of graded exams
+            System.Console.WriteLine($"Student ID: {studentId}, Graded exams: {result.Count}");
+
+            return Ok(result);
+        }
+
     }
 }

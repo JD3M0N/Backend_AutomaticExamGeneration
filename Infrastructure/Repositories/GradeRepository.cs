@@ -73,6 +73,41 @@ namespace Infrastructure.Repositories
             return finalGrade.ToString("F2"); // Retorna el promedio con 2 decimales
         }
 
+        public async Task<List<object>> GetStudentGradedExamsAsync(int studentId)
+        {
+            var examIds = await _context.Grades
+                .Where(g => g.StudentId == studentId)
+                .Select(g => g.ExamId)
+                .Distinct()
+                .ToListAsync();
+
+            if (!examIds.Any())
+                return new List<object> { new { message = "El estudiante no tiene exámenes calificados" } };
+
+            var gradedExams = new List<object>();
+
+            foreach (var examId in examIds)
+            {
+                var grades = await _context.Grades
+                    .Where(g => g.StudentId == studentId && g.ExamId == examId)
+                    .ToListAsync();
+
+                var totalScore = grades.Sum(g => g.GradeValue);
+                var totalQuestions = await _context.Belong.CountAsync(b => b.ExamId == examId);
+
+                if (totalQuestions == 0)
+                    continue; // Evita incluir exámenes sin preguntas
+
+                double finalGrade = (double)totalScore / totalQuestions;
+                gradedExams.Add(new
+                {
+                    ExamId = examId,
+                    Grade = finalGrade.ToString("F2") // Formato con dos decimales
+                });
+            }
+
+            return gradedExams;
+        }
 
     }
 }

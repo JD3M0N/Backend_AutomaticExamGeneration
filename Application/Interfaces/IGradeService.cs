@@ -12,5 +12,6 @@ namespace Application.Interfaces
         Task UpdateGradeAsync(int id, GradeDto gradeDto);
         Task DeleteGradeAsync(int id);
         Task<string> GetStudentExamGradeAsync(int studentId, int examId);
+        Task<List<object>> GetStudentGradedExamsAsync(int studentId);
     }
 }
