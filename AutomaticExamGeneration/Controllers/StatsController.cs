@@ -78,6 +78,17 @@ namespace WebAPI.Controllers
 
             return Ok(unusedQuestions);
         }
+
+        [HttpGet("compare-exams")]
+        public async Task<ActionResult<IEnumerable<ExamComparisonDto>>> CompareExamsAcrossAssignments()
+        {
+            var examComparisons = await _statsService.CompareExamsAcrossAssignmentsAsync();
+
+            // Write in console that we are comparing exams across assignments
+            System.Console.WriteLine("Comparing exams across assignments");
+
+            return Ok(examComparisons);
+        }
     }
 }
 

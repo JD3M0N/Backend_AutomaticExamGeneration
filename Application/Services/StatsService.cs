@@ -41,5 +41,9 @@ namespace Application.Services
         {
             return await _statsRepository.GetUnusedQuestionsAsync();
         }
+        public async Task<IEnumerable<ExamComparisonDto>> CompareExamsAcrossAssignmentsAsync()
+        {
+            return await _statsRepository.CompareExamsAcrossAssignmentsAsync();
+        }
     }
 }

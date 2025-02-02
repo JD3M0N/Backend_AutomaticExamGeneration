@@ -137,5 +137,71 @@ namespace Infrastructure.Repositories
 
             return unusedQuestions;
         }
+
+        //public async Task<IEnumerable<ExamComparisonDto>> CompareExamsAcrossAssignmentsAsync()
+        //{
+        //    var examData = await (from e in _context.Exam
+        //                          join a in _context.Assignment on e.AssignmentId equals a.Id
+        //                          join b in _context.Belong on e.Id equals b.ExamId
+        //                          join q in _context.Questions on b.QuestionId equals q.Id
+        //                          join t in _context.Topic on q.TopicId equals t.Id
+        //                          group new { e, q, t } by new { a.Id, a.Name } into grouped
+        //                          select new
+        //                          {
+        //                              AssignmentName = grouped.Key.Name,
+        //                              AverageDifficulty = grouped.Average(x => x.e.Difficulty),
+        //                              TopicDistribution = grouped
+        //                                  .GroupBy(x => x.t.Name)
+        //                                  .Select(g => new
+        //                                  {
+        //                                      Topic = g.Key,
+        //                                      Percentage = (double)g.Count() / grouped.Count() * 100
+        //                                  })
+        //                                  .ToDictionary(x => x.Topic, x => x.Percentage)
+        //                          })
+        //                          .ToListAsync();
+
+        //    return examData.Select(d => new ExamComparisonDto
+        //    {
+        //        AssignmentName = d.AssignmentName,
+        //        AverageDifficulty = d.AverageDifficulty,
+        //        TopicDistribution = d.TopicDistribution
+        //    });
+        //}
+
+        public async Task<IEnumerable<ExamComparisonDto>> CompareExamsAcrossAssignmentsAsync()
+        {
+            var examData = await (from e in _context.Exam
+                                  join a in _context.Assignment on e.AssignmentId equals a.Id
+                                  join b in _context.Belong on e.Id equals b.ExamId
+                                  join q in _context.Questions on b.QuestionId equals q.Id
+                                  join t in _context.Topic on q.TopicId equals t.Id
+                                  select new
+                                  {
+                                      AssignmentId = a.Id,
+                                      AssignmentName = a.Name,
+                                      TopicName = t.Name,
+                                      QuestionId = q.Id,
+                                      ExamDifficulty = e.Difficulty
+                                  })
+                                  .ToListAsync(); // Se trae a memoria antes de construir el diccionario
+
+            // Procesamiento en memoria
+            var groupedData = examData
+                .GroupBy(x => new { x.AssignmentId, x.AssignmentName })
+                .Select(g => new ExamComparisonDto
+                {
+                    AssignmentName = g.Key.AssignmentName,
+                    AverageDifficulty = g.Average(x => x.ExamDifficulty), // Dificultad promedio
+                    TopicDistribution = g.GroupBy(x => x.TopicName)
+                                         .ToDictionary(
+                                             t => t.Key,
+                                             t => (double)t.Count() / g.Count() * 100 // % de preguntas por tema
+                                         )
+                })
+                .ToList();
+
+            return groupedData;
+        }
     }
 }
