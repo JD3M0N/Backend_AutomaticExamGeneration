@@ -71,5 +71,21 @@ namespace Infrastructure.Repositories
                               UsageCount = g.Count()
                           }).ToListAsync();
         }
+
+        public async Task<IEnumerable<ValidatedExamDto>> GetValidatedExamsByProfessorAsync(int professorId)
+        {
+            return await (from v in _context.Validate
+                          join e in _context.Exam on v.ExamId equals e.Id
+                          join a in _context.Assignment on e.AssignmentId equals a.Id
+                          where v.ProfessorId == professorId
+                          select new ValidatedExamDto
+                          {
+                              ExamId = e.Id,
+                              AssignmentName = a.Name,
+                              ValidationDate = v.ValidationDate,
+                              Observations = v.Observations
+                          })
+                          .ToListAsync();
+        }
     }
 }

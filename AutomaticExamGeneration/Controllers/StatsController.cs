@@ -45,6 +45,17 @@ namespace WebAPI.Controllers
 
             return Ok(stats);
         }
+
+        [HttpGet("validated-exams/{professorId}")]
+        public async Task<ActionResult<IEnumerable<ValidatedExamDto>>> GetValidatedExamsByProfessor(int professorId)
+        {
+            var validatedExams = await _statsService.GetValidatedExamsByProfessorAsync(professorId);
+
+            // Write in console that we are fetching validated exams by professor ID and how many exams he has validated
+            System.Console.WriteLine($"Fetching validated exams for Professor ID {professorId} - {validatedExams.Count()} exams validated");
+
+            return Ok(validatedExams);
+        }
     }
 }
 

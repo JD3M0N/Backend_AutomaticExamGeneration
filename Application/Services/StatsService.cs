@@ -28,5 +28,10 @@ namespace Application.Services
         {
             return await _statsRepository.GetMostUsedQuestionsAsync(assignmentId);
         }
+
+        public async Task<IEnumerable<ValidatedExamDto>> GetValidatedExamsByProfessorAsync(int professorId)
+        {
+            return await _statsRepository.GetValidatedExamsByProfessorAsync(professorId);
+        }
     }
 }
