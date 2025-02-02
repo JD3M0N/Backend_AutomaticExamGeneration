@@ -97,5 +97,20 @@ namespace WebAPI.Controllers
 
             return Ok(topics);
         }
+
+        [HttpGet("{professorId}/unvalidated-exams")]
+        public async Task<IActionResult> GetUnvalidatedExams(int professorId)
+        {
+            var exams = await _professorService.GetUnvalidatedExamsByProfessorIdAsync(professorId);
+
+            if (exams == null || !exams.Any())
+                return NotFound(new { message = "No hay exámenes pendientes de validación para este profesor." });
+
+            // Write to the console how many exams this professor id can validate
+            Console.WriteLine($"Professor with ID {professorId} can validate {exams.Count()} exams.");
+
+            return Ok(exams);
+        }
+
     }
 }

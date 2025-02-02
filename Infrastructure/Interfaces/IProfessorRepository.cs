@@ -13,5 +13,7 @@ namespace Infrastructure.Interfaces
         Task DeleteProfessorAsync(int id);
         Task<Professor> GetProfessorByEmailAsync(string email);
         Task<bool> IsHeadOfAssignmentAsync(int professorId);
+        Task<IEnumerable<Exam>> GetUnvalidatedExamsByProfessorIdAsync(int professorId);
+
     }
 }

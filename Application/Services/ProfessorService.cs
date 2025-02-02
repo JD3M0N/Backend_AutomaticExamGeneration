@@ -39,5 +39,9 @@ namespace Application.Services
         {
             return await _professorRepository.GetProfessorByEmailAsync(email);
         }
+        public async Task<IEnumerable<Exam>> GetUnvalidatedExamsByProfessorIdAsync(int professorId)
+        {
+            return await _professorRepository.GetUnvalidatedExamsByProfessorIdAsync(professorId);
+        }
     }
 }

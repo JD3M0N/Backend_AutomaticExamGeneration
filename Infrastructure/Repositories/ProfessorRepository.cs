@@ -56,5 +56,13 @@ namespace Infrastructure.Repositories
         {
             return await _context.Assignment.AnyAsync(a => a.ProfessorId == professorId);
         }
+
+        public async Task<IEnumerable<Exam>> GetUnvalidatedExamsByProfessorIdAsync(int professorId)
+        {
+            return await _context.Exam
+                .Where(e => e.Assignment.ProfessorId == professorId &&
+                            !_context.Validate.Any(v => v.ExamId == e.Id))
+                .ToListAsync();
+        }
     }
 }
