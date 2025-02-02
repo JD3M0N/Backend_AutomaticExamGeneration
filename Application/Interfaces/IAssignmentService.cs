@@ -12,5 +12,6 @@ namespace Application.Interfaces
         Task UpdateAssignmentAsync(Assignment assignment);
         Task DeleteAssignmentAsync(int id);
         Task<int?> GetAssignmentIdByNameAsync(string name);
+        Task<IEnumerable<Exam>> GetExamsByAssignmentIdAsync(int assignmentId);
     }
 }

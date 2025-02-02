@@ -50,5 +50,12 @@ namespace Infrastructure.Repositories
         {
             return await _context.Assignment.FirstOrDefaultAsync(a => a.Name == name);
         }
+        public async Task<IEnumerable<Exam>> GetExamsByAssignmentIdAsync(int assignmentId)
+        {
+            return await _context.Exam
+                .Where(e => e.AssignmentId == assignmentId)
+                .ToListAsync();
+        }
+
     }
 }

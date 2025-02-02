@@ -44,5 +44,10 @@ namespace Application.Services
             var assignment = await _assignmentRepository.GetAssignmentByNameAsync(name);
             return assignment?.Id;
         }
+        public async Task<IEnumerable<Exam>> GetExamsByAssignmentIdAsync(int assignmentId)
+        {
+            return await _assignmentRepository.GetExamsByAssignmentIdAsync(assignmentId);
+        }
+
     }
 }

@@ -134,5 +134,20 @@ namespace WebAPI.Controllers
             await _assignmentService.DeleteAssignmentAsync(id);
             return Ok();
         }
+
+        [HttpGet("{assignmentId}/exams")]
+        public async Task<IActionResult> GetExamsByAssignmentId(int assignmentId)
+        {
+            var exams = await _assignmentService.GetExamsByAssignmentIdAsync(assignmentId);
+
+            if (exams == null || !exams.Any())
+                return NotFound(new { message = "No hay exámenes para esta asignatura." });
+
+            // Write to the console how many exams this assignment ID has
+            Console.WriteLine($"Assignment with ID {assignmentId} has {exams.Count()} exams.");
+
+            return Ok(exams);
+        }
+
     }
 }
