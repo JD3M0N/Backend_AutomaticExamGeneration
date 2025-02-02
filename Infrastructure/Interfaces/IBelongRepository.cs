@@ -15,5 +15,6 @@ namespace Infrastructure.Interfaces
         Task UpdateBelongAsync(Belong belong);
         Task DeleteBelongAsync(int id);
         Task SaveChangesAsync();
+        Task<IEnumerable<Question>> GetQuestionsByExamIdAsync(int examId);
     }
 }

@@ -15,5 +15,6 @@ namespace Application.Interfaces
         Task AddBelongAsync(BelongDto belongDto);
         Task UpdateBelongAsync(Belong belong);
         Task DeleteBelongAsync(int id);
+        Task<IEnumerable<Question>> GetQuestionsByExamIdAsync(int examId);
     }
 }

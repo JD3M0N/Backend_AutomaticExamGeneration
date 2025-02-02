@@ -67,6 +67,10 @@ namespace Application.Services
         {
             await _belongRepository.DeleteBelongAsync(id);
         }
-    }
 
+        public async Task<IEnumerable<Question>> GetQuestionsByExamIdAsync(int examId)
+        {
+            return await _belongRepository.GetQuestionsByExamIdAsync(examId);
+        }
+    }
 }

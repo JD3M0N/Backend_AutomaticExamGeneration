@@ -92,6 +92,21 @@ namespace Web.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("exam/{examId}/questions")]
+        public async Task<ActionResult<IEnumerable<Question>>> GetQuestionsByExamId(int examId)
+        {
+            var questions = await _belongService.GetQuestionsByExamIdAsync(examId);
+            if (questions == null)
+            {
+                return NotFound();
+            }
+
+            // Write to the console how many questions this exam id has
+            System.Console.WriteLine($"Exam ID {examId} has {questions.Count()} questions");
+
+            return Ok(questions);
+        }
     }
 }
 

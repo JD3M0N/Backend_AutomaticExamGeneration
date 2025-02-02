@@ -59,5 +59,13 @@ namespace Infrastructure.Repositories
         {
             await _context.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<Question>> GetQuestionsByExamIdAsync(int examId)
+        {
+            return await _context.Belong
+                .Where(b => b.ExamId == examId)
+                .Select(b => b.Question)
+                .ToListAsync();
+        }
     }
 }
