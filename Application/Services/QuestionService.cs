@@ -43,5 +43,10 @@ namespace Application.Services
             };
             await _questionRepository.AddEnterAsync(enter);
         }
+        public async Task<IEnumerable<Question>> GetQuestionsByProfessorIdAsync(int professorId)
+        {
+            return await _questionRepository.GetQuestionsByProfessorIdAsync(professorId);
+        }
+
     }
 }

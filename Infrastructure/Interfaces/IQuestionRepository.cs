@@ -13,5 +13,6 @@ namespace Infrastructure.Interfaces
         Task<Question> GetQuestionByIdAsync(int id);
         Task AddEnterAsync(Enter enter);
         Task<Question> GetQuestionByTopicAndDifficultyAsync(int topicId, int difficulty);
+        Task<IEnumerable<Question>> GetQuestionsByProfessorIdAsync(int professorId);
     }
 }

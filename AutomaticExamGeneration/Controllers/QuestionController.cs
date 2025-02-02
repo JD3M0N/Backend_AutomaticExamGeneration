@@ -81,5 +81,21 @@ namespace WebAPI.Controllers
             await _questionService.UpdateQuestionAsync(question);
             return Ok(question);
         }
+
+        [HttpGet("professor/{professorId}")]
+        public async Task<ActionResult<IEnumerable<Question>>> GetQuestionsByProfessor(int professorId)
+        {
+            var questions = await _questionService.GetQuestionsByProfessorIdAsync(professorId);
+            if (questions == null || !questions.Any())
+            {
+                return NotFound("No se encontraron preguntas para este profesor.");
+            }
+
+            //Write in console how many questions this professor has
+            System.Console.WriteLine($"El profesor {professorId} tiene {questions.Count()} preguntas.");    
+
+            return Ok(questions);
+        }
+
     }
 }

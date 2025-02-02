@@ -59,5 +59,13 @@ namespace Infrastructure.Repositories
                 .OrderBy(r => Guid.NewGuid()) // Selección aleatoria entre las posibles
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<IEnumerable<Question>> GetQuestionsByProfessorIdAsync(int professorId)
+        {
+            return await _context.Questions
+                .Where(q => q.ProfessorId == professorId)
+                .ToListAsync();
+        }
+
     }
 }
