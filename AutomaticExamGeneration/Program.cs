@@ -47,6 +47,7 @@ builder.Services.AddScoped<IBelongRepository, BelongRepository>();
 builder.Services.AddScoped<IGradeRepository, GradeRepository>();
 builder.Services.AddScoped<IRegradeRepository, RegradeRepository>();
 builder.Services.AddScoped<IRequestRegradeRepository, RequestRegradeRepository>();
+builder.Services.AddScoped<IValidateRepository, ValidateRepository>();
 
 // Add services
 builder.Services.AddScoped<IStudentService, StudentService>();
@@ -68,6 +69,7 @@ builder.Services.AddScoped<IBelongService, BelongService>();
 builder.Services.AddScoped<IGradeService, GradeService>();
 builder.Services.AddScoped<IRegradeService, RegradeService>();
 builder.Services.AddScoped<IRequestRegradeService, RequestRegradeService>();
+builder.Services.AddScoped<IValidateService, ValidateService>();
 
 
 var app = builder.Build();
