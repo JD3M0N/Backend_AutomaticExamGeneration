@@ -49,5 +49,10 @@ namespace Application.Services
             return await _assignmentRepository.GetExamsByAssignmentIdAsync(assignmentId);
         }
 
+        public async Task<IEnumerable<Topic>> GetTopicsByAssignmentIdAsync(int assignmentId)
+        {
+            return await _assignmentRepository.GetTopicsByAssignmentIdAsync(assignmentId);
+        }
+
     }
 }

@@ -149,5 +149,19 @@ namespace WebAPI.Controllers
             return Ok(exams);
         }
 
+        [HttpGet("{assignmentId}/topics")]
+        public async Task<IActionResult> GetTopicsByAssignmentId(int assignmentId)
+        {
+            var topics = await _assignmentService.GetTopicsByAssignmentIdAsync(assignmentId);
+
+            if (topics == null || !topics.Any())
+                return NotFound(new { message = "No hay topics para esta asignatura." });
+
+            // Write to the console how many topics this assignment ID has
+            Console.WriteLine($"Assignment with ID {assignmentId} has {topics.Count()} topics.");
+
+            return Ok(topics);
+        }
+
     }
 }

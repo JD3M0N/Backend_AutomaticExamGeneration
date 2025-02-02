@@ -13,5 +13,6 @@ namespace Application.Interfaces
         Task DeleteAssignmentAsync(int id);
         Task<int?> GetAssignmentIdByNameAsync(string name);
         Task<IEnumerable<Exam>> GetExamsByAssignmentIdAsync(int assignmentId);
+        Task<IEnumerable<Topic>> GetTopicsByAssignmentIdAsync(int assignmentId);
     }
 }

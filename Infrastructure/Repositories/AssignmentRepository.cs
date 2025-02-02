@@ -57,5 +57,12 @@ namespace Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Topic>> GetTopicsByAssignmentIdAsync(int assignmentId)
+        {
+            return await _context.Topic
+                .Where(t => t.AssignmentId == assignmentId)
+                .ToListAsync();
+        }
+
     }
 }

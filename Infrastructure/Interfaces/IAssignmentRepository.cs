@@ -13,5 +13,6 @@ namespace Infrastructure.Interfaces
         Task DeleteAssignmentAsync(int id);
         Task<Assignment> GetAssignmentByNameAsync(string name);
         Task<IEnumerable<Exam>> GetExamsByAssignmentIdAsync(int assignmentId);
+        Task<IEnumerable<Topic>> GetTopicsByAssignmentIdAsync(int assignmentId);
     }
 }
