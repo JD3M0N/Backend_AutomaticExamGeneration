@@ -73,6 +73,22 @@ namespace WebAPI.Controllers
             return Ok(professor);
         }
 
+        [HttpGet("{professorId}")]
+        public async Task<IActionResult> GetProfessorById(int professorId)
+        {
+            var professor = await _professorService.GetProfessorByIdAsync(professorId);
+
+            if (professor == null)
+            {
+                return NotFound($"No professor found with ID {professorId}.");
+            }
+
+            // Write to the console the professor's name
+            Console.WriteLine($"Professor: {professor.Name} founded");
+
+            return Ok(professor);
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProfessor(int id)
         {

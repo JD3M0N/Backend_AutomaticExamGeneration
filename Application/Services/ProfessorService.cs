@@ -20,6 +20,11 @@ namespace Application.Services
             return await _professorRepository.GetProfessorsAsync();
         }
 
+        public async Task<Professor> GetProfessorByIdAsync(int professorId)
+        {
+            return await _professorRepository.GetProfessorByIdAsync(professorId);
+        }
+
         public async Task AddProfessorAsync(Professor professor)
         {
             await _professorRepository.AddProfessorAsync(professor);
