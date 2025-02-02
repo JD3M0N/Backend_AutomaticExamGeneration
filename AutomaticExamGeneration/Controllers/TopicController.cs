@@ -42,6 +42,21 @@ namespace WebAPI.Controllers
             return Ok(topics);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetTopicById(int id)
+        {
+            var topic = await _topicService.GetTopicByIdAsync(id);
+            if (topic == null)
+            {
+                return NotFound($"No topic found with ID {id}.");
+            }
+
+            // Write to the console the topic's name
+            System.Console.WriteLine($"Topic: {topic.Name} found");
+
+            return Ok(topic);
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTopic(int id)
         {
