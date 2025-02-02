@@ -89,6 +89,17 @@ namespace WebAPI.Controllers
 
             return Ok(examComparisons);
         }
+
+        [HttpGet("professor-reviews")]
+        public async Task<ActionResult<IEnumerable<ProfessorExamReviewDto>>> GetProfessorsWhoReviewedExams()
+        {
+            var reviews = await _statsService.GetProfessorsWhoReviewedExamsAsync();
+
+            // Write in console that we are fetching professors who reviewed exams
+            System.Console.WriteLine("Fetching professors who reviewed exams");
+
+            return Ok(reviews);
+        }
     }
 }
 

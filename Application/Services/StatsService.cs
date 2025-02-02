@@ -45,5 +45,9 @@ namespace Application.Services
         {
             return await _statsRepository.CompareExamsAcrossAssignmentsAsync();
         }
+        public async Task<IEnumerable<ProfessorExamReviewDto>> GetProfessorsWhoReviewedExamsAsync()
+        {
+            return await _statsRepository.GetProfessorsWhoReviewedExamsAsync();
+        }
     }
 }

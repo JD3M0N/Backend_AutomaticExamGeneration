@@ -203,5 +203,28 @@ namespace Infrastructure.Repositories
 
             return groupedData;
         }
+
+        public async Task<IEnumerable<ProfessorExamReviewDto>> GetProfessorsWhoReviewedExamsAsync()
+        {
+            // Fecha límite: hace 1 año desde hoy
+            DateTime oneYearAgo = DateTime.UtcNow.AddYears(-1);
+
+            var reviews = await (from v in _context.Validate
+                                 join e in _context.Exam on v.ExamId equals e.Id
+                                 join a in _context.Assignment on e.AssignmentId equals a.Id
+                                 join p in _context.Professor on v.ProfessorId equals p.Id
+                                 where v.ValidationDate >= oneYearAgo
+                                 group v by new { ProfessorName = p.Name, AssignmentName = a.Name } into grouped
+                                 select new ProfessorExamReviewDto
+                                 {
+                                     ProfessorName = grouped.Key.ProfessorName,
+                                     AssignmentName = grouped.Key.AssignmentName,
+                                     ExamsReviewed = grouped.Count()
+                                 })
+                                 .ToListAsync();
+
+            return reviews;
+        }
+
     }
 }

@@ -13,5 +13,6 @@ namespace Application.Interfaces
             Task<IEnumerable<ExamPerformanceDto>> GetExamPerformanceAsync(int examId);
             Task<IEnumerable<UnusedQuestionDto>> GetUnusedQuestionsAsync();
             Task<IEnumerable<ExamComparisonDto>> CompareExamsAcrossAssignmentsAsync();
+            Task<IEnumerable<ProfessorExamReviewDto>> GetProfessorsWhoReviewedExamsAsync();
     }
 }
