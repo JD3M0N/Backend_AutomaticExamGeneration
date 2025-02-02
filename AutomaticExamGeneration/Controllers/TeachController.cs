@@ -83,5 +83,19 @@ namespace WebAPI.Controllers
             await _teachService.DeleteTeachAsync(id);
             return Ok();
         }
+
+        [HttpGet("professor/{professorId}/assignments")]
+        public async Task<IActionResult> GetAssignmentsByProfessorId(int professorId)
+        {
+            var assignments = await _teachService.GetAssignmentsByProfessorIdAsync(professorId);
+            if (assignments == null || !assignments.Any())
+                return NotFound("No assignments found for the given professor ID.");
+
+            // Write to the console how many assignments this professor id has
+            Console.WriteLine($"Professor : {professorId} teaches : {assignments.Count()} assignments.");
+
+            return Ok(assignments);
+        }
+
     }
 }
