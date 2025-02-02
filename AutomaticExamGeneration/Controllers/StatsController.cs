@@ -56,6 +56,17 @@ namespace WebAPI.Controllers
 
             return Ok(validatedExams);
         }
+
+        [HttpGet("exam-performance/{examId}")]
+        public async Task<ActionResult<IEnumerable<ExamPerformanceDto>>> GetExamPerformance(int examId)
+        {
+            var examPerformance = await _statsService.GetExamPerformanceAsync(examId);
+
+            // Write in console that we are fetching exam performance by exam ID
+            System.Console.WriteLine($"Fetching exam performance for Exam ID {examId}");
+
+            return Ok(examPerformance);
+        }
     }
 }
 

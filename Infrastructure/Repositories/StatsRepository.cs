@@ -87,5 +87,27 @@ namespace Infrastructure.Repositories
                           })
                           .ToListAsync();
         }
+
+        public async Task<IEnumerable<ExamPerformanceDto>> GetExamPerformanceAsync(int examId)
+        {
+            return await (from g in _context.Grades
+                          join q in _context.Questions on g.QuestionId equals q.Id
+                          where g.ExamId == examId
+                          group g by new { q.Id, q.QuestionText, q.Difficulty } into grouped
+                          select new ExamPerformanceDto
+                          {
+                              ExamId = examId,
+                              QuestionText = grouped.Key.QuestionText,
+                              Difficulty = grouped.Key.Difficulty,
+                              TotalResponses = grouped.Count(),
+                              CorrectResponses = grouped.Count(g => g.GradeValue > 2),
+                              IncorrectResponses = grouped.Count(g => g.GradeValue <= 2),
+                              AccuracyRate = grouped.Count() > 0
+                                  ? (double)grouped.Count(g => g.GradeValue > 2) / grouped.Count() * 100
+                                  : 0
+                          })
+                          .OrderByDescending(e => e.AccuracyRate) // Ordenar por tasa de acierto descendente
+                          .ToListAsync();
+        }
     }
 }

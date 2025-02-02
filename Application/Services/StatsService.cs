@@ -33,5 +33,9 @@ namespace Application.Services
         {
             return await _statsRepository.GetValidatedExamsByProfessorAsync(professorId);
         }
+        public async Task<IEnumerable<ExamPerformanceDto>> GetExamPerformanceAsync(int examId)
+        {
+            return await _statsRepository.GetExamPerformanceAsync(examId);
+        }
     }
 }

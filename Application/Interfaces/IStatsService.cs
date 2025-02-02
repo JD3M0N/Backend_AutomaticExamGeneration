@@ -9,6 +9,7 @@ namespace Application.Interfaces
             Task<IEnumerable<ExamStatsDto>> GetExamsByAssignmentAsync(int assignmentId);
             Task<IEnumerable<ExamStatsDto>> GetExamsByAssignmentNameAsync(string assignmentName);
             Task<IEnumerable<QuestionUsageStatsDto>> GetMostUsedQuestionsAsync(int assignmentId);
-        Task<IEnumerable<ValidatedExamDto>> GetValidatedExamsByProfessorAsync(int professorId);
+            Task<IEnumerable<ValidatedExamDto>> GetValidatedExamsByProfessorAsync(int professorId);
+            Task<IEnumerable<ExamPerformanceDto>> GetExamPerformanceAsync(int examId);
     }
 }

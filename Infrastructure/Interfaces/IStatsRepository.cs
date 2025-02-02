@@ -10,5 +10,6 @@ namespace Infrastructure.Interfaces
         Task<IEnumerable<ExamStatsDto>> GetExamsByAssignmentNameAsync(string assignmentName);
         Task<IEnumerable<QuestionUsageStatsDto>> GetMostUsedQuestionsAsync(int assignmentId);
         Task<IEnumerable<ValidatedExamDto>> GetValidatedExamsByProfessorAsync(int professorId);
+        Task<IEnumerable<ExamPerformanceDto>> GetExamPerformanceAsync(int examId);
     }
 }
