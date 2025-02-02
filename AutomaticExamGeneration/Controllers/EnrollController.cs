@@ -28,6 +28,10 @@ namespace Web.Controllers
             }
 
             await _enrollService.EnrollStudentAsync(enrollDto);
+
+            // Write to console that an enrollment relationship has been added
+            System.Console.WriteLine($"Enroll relationship added for student ID {enrollDto.S_ID} and assignment ID {enrollDto.A_ID}.");
+
             return Ok("Enroll relationship added successfully.");
         }
 
@@ -41,6 +45,9 @@ namespace Web.Controllers
             {
                 return NotFound($"No assignments found for student with ID {studentId}.");
             }
+
+            // Write to console the assignments found for the student
+            System.Console.WriteLine($"Assignments found for student ID {studentId}.");
 
             return Ok(assignments);
         }
@@ -56,6 +63,9 @@ namespace Web.Controllers
                 return NotFound($"No students found for assignment with ID {assignmentId}.");
             }
 
+            // Write to console the students found for the assignment
+            System.Console.WriteLine($"Students found for assignment ID {assignmentId}.");
+
             return Ok(students);
         }
 
@@ -64,6 +74,9 @@ namespace Web.Controllers
         {
             // Llamar al servicio para eliminar la relación de inscripción
             await _enrollService.UnenrollStudentAsync(studentId, assignmentId);
+
+            // Write to console that an enrollment relationship has been deleted
+            System.Console.WriteLine($"Enroll relationship between student ID {studentId} and assignment ID {assignmentId} deleted.");
 
             return Ok($"Enrollment relationship between student ID {studentId} and assignment ID {assignmentId} deleted successfully.");
         }
