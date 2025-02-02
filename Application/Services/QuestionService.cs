@@ -48,5 +48,9 @@ namespace Application.Services
             return await _questionRepository.GetQuestionsByProfessorIdAsync(professorId);
         }
 
+        public async Task<Question> GetQuestionByIdAsync(int id)
+        {
+            return await _questionRepository.GetQuestionByIdAsync(id);
+        }
     }
 }

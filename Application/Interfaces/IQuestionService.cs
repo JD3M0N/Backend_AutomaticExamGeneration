@@ -12,5 +12,6 @@ namespace Application.Interfaces
         Task UpdateQuestionAsync(Question question);
         Task AddEnterAsync(int professorId, int questionId);
         Task<IEnumerable<Question>> GetQuestionsByProfessorIdAsync(int professorId);
+        Task<Question> GetQuestionByIdAsync(int id);
     }
 }

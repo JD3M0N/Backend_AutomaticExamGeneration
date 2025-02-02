@@ -57,13 +57,36 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<IEnumerable<Question>>> GetAllQuestions()
         {
             var questions = await _questionService.GetAllQuestionsAsync();
+
+            // Write in console how many questions there are
+            System.Console.WriteLine($"Hay {questions.Count()} preguntas.");
+
             return Ok(questions);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetQuestionById(int id)
+        {
+            var question = await _questionService.GetQuestionByIdAsync(id);
+            if (question == null)
+            {
+                return NotFound("Pregunta no encontrada.");
+            }
+
+            // Write in console the question's text
+            System.Console.WriteLine($"Pregunta: {question.QuestionText}");
+
+            return Ok(question);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteQuestion(int id)
         {
             await _questionService.DeleteQuestionAsync(id);
+
+            //Write in console that a question has been deleted
+            System.Console.WriteLine($"Pregunta con ID {id} eliminada.");
+
             return Ok();
         }
 
