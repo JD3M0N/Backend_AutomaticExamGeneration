@@ -127,5 +127,15 @@ namespace WebAPI.Controllers
             return Ok(exam);
         }
 
+        [HttpGet("unattempted/{studentId}/{assignmentId}")]
+        public async Task<IActionResult> GetUnattemptedExams(int studentId, int assignmentId)
+        {
+            var exams = await _examService.GetUnattemptedExamsAsync(studentId, assignmentId);
+
+            // Write in console how many unattempted exams the student has
+            System.Console.WriteLine($"Student ID {studentId} has {exams.Count()} unattempted exams");
+
+            return Ok(exams);
+        }
     }
 }

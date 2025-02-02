@@ -16,6 +16,7 @@ namespace Application.Interfaces
         Task<IEnumerable<Question>> GetQuestionsForExamAsync(int examId);
         Task UpdateExamStateAsync(int examId, string state);
         Task<Exam> GenerateExamAsync(ExamGenerationRequestDto request);
+        Task<IEnumerable<Exam>> GetUnattemptedExamsAsync(int studentId, int assignmentId);
     }
 
 }

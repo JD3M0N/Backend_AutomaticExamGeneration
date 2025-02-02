@@ -76,5 +76,13 @@ namespace Infrastructure.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<IEnumerable<Exam>> GetUnattemptedExamsAsync(int studentId, int assignmentId)
+        {
+            return await _context.Exam
+                .Where(e => e.AssignmentId == assignmentId && e.State == "validated")
+                .Where(e => !_context.Response.Any(r => r.StudentId == studentId && r.ExamId == e.Id))
+                .ToListAsync();
+        }
     }
 }

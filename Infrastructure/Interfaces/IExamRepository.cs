@@ -14,5 +14,6 @@ namespace Infrastructure.Interfaces
         Task AddQuestionToExamAsync(int examId, int questionId);
         Task<IEnumerable<Question>> GetQuestionsForExamAsync(int examId);
         Task UpdateExamStateAsync(int examId, string state);
+        Task<IEnumerable<Exam>> GetUnattemptedExamsAsync(int studentId, int assignmentId);
     }
 }

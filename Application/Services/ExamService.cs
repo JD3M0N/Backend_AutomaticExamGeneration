@@ -88,5 +88,10 @@ namespace Application.Services
 
             return exam;
         }
+
+        public async Task<IEnumerable<Exam>> GetUnattemptedExamsAsync(int studentId, int assignmentId)
+        {
+            return await _examRepository.GetUnattemptedExamsAsync(studentId, assignmentId);
+        }
     }
 }
