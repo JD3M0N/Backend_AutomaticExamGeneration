@@ -24,6 +24,9 @@ namespace Domain.Entities
         [Column("V_Date")]
         public DateTime ValidationDate { get; set; } // = DateTime.UtcNow; // V_Date
 
+        [Column("V_State")]
+        public bool ValidationState { get; set; } = false; // V_State: 1 = Validated, 0 = Not Validated
+
         public Exam Exam { get; set; } // Relación con Exam
         public Professor Professor { get; set; } // Relación con Professor
     }

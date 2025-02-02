@@ -6,5 +6,6 @@ namespace Application.Dtos
         public int ProfessorId { get; set; }
         public string Observations { get; set; }
         public DateTime ValidationDate { get; set; }
+        public bool ValidationState { get; set; }
     }
 }

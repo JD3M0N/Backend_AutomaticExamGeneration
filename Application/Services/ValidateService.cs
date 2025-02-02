@@ -12,10 +12,12 @@ namespace Application.Services
     public class ValidateService : IValidateService
     {
         private readonly IValidateRepository _validateRepository;
+        private readonly IExamService _examService;
 
-        public ValidateService(IValidateRepository validateRepository)
+        public ValidateService(IValidateRepository validateRepository, IExamService examService)
         {
             _validateRepository = validateRepository;
+            _examService = examService;
         }
 
         public async Task<IEnumerable<ValidateDto>> GetAllValidationsAsync()
@@ -37,9 +39,17 @@ namespace Application.Services
                 ExamId = validateDto.ExamId,
                 ProfessorId = validateDto.ProfessorId,
                 Observations = validateDto.Observations,
-                ValidationDate = validateDto.ValidationDate
+                ValidationDate = validateDto.ValidationDate,
+                ValidationState = validateDto.ValidationState
             };
+
             await _validateRepository.AddValidationAsync(validation);
+
+            // Determinar estado del examen
+            string newState = validation.ValidationState ? "validated" : "denied";
+
+            // Llamar al servicio de examen para actualizar el estado
+            await _examService.UpdateExamStateAsync(validateDto.ExamId, newState);
         }
     }
 }
