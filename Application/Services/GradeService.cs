@@ -78,5 +78,11 @@ namespace Application.Services
         {
             await _gradeRepository.DeleteGradeAsync(id);
         }
+
+        public async Task<string> GetStudentExamGradeAsync(int studentId, int examId)
+        {
+            return await _gradeRepository.GetStudentExamGradeAsync(studentId, examId);
+        }
+
     }
 }

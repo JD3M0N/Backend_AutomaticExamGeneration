@@ -46,5 +46,33 @@ namespace Infrastructure.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<string> GetStudentExamGradeAsync(int studentId, int examId)
+        {
+            var responses = await _context.Response
+                .Where(r => r.StudentId == studentId && r.ExamId == examId)
+                .ToListAsync();
+
+            if (!responses.Any())
+                return "El estudiante no ha realizado el examen"; // No hay respuestas
+
+            var grades = await _context.Grades
+                .Where(g => g.StudentId == studentId && g.ExamId == examId)
+                .ToListAsync();
+
+            if (!grades.Any())
+                return "El examen aún no ha sido calificado"; // No hay calificaciones en la tabla Grade
+
+            var totalScore = grades.Sum(g => g.GradeValue);
+            var totalQuestions = await _context.Belong.CountAsync(b => b.ExamId == examId);
+
+            if (totalQuestions == 0)
+                return "Nota no disponible"; // Evita división por cero
+
+            double finalGrade = (double)totalScore / totalQuestions;
+            return finalGrade.ToString("F2"); // Retorna el promedio con 2 decimales
+        }
+
+
     }
 }

@@ -73,5 +73,24 @@ namespace WebAPI.Controllers
 
             return Ok();
         }
+
+        [HttpGet("student/{studentId}/exam/{examId}")]
+        public async Task<IActionResult> GetStudentExamGrade(int studentId, int examId)
+        {
+            var result = await _gradeService.GetStudentExamGradeAsync(studentId, examId);
+
+            if (result == "El estudiante no ha realizado el examen" || result == "El examen aún no ha sido calificado")
+            {
+                // Write to the console the message
+                System.Console.WriteLine(result);
+
+                return NotFound(new { message = result });
+            }
+
+            // Write to the console the student ID, the exam ID and the grade
+            System.Console.WriteLine($"Student ID: {studentId}, Exam ID: {examId}, Grade: {result}");
+
+            return Ok(new { StudentId = studentId, ExamId = examId, Grade = result });
+        }
     }
 }
