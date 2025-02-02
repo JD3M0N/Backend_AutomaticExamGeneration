@@ -32,5 +32,10 @@ namespace Application.Services
         {
             await _teachRepository.DeleteTeachAsync(id);
         }
+        public async Task<IEnumerable<TeachDto>> GetAssignmentsByProfessorIdAsync(int professorId)
+        {
+            return await _teachRepository.GetAssignmentsByProfessorIdAsync(professorId);
+        }
+
     }
 }

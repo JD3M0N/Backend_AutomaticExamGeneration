@@ -46,5 +46,18 @@ namespace Infrastructure.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<IEnumerable<TeachDto>> GetAssignmentsByProfessorIdAsync(int professorId)
+        {
+            return await _context.Teach
+                                 .Where(t => t.ProfessorId == professorId)
+                                 .Include(t => t.Assignment)
+                                 .Select(t => new TeachDto
+                                 {
+                                     AssignmentId = t.AssignmentId,
+                                     AssignmentName = t.Assignment.Name
+                                 })
+                                 .ToListAsync();
+        }
     }
 }
