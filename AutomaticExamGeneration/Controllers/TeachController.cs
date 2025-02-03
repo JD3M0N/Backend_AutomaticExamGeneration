@@ -97,5 +97,18 @@ namespace WebAPI.Controllers
             return Ok(assignments);
         }
 
+        [HttpGet("assignment/{assignmentId}/professors")]
+        public async Task<IActionResult> GetProfessorsByAssignmentId(int assignmentId)
+        {
+            var professors = await _teachService.GetProfessorsByAssignmentIdAsync(assignmentId);
+            if (professors == null || !professors.Any())
+                return NotFound("No professors found for the given assignment ID.");
+
+
+            // Write to the console how many professors this assignment id has
+            Console.WriteLine($"Assignment : {assignmentId} has : {professors.Count()} professors.");
+
+            return Ok(professors);
+        }
     }
 }

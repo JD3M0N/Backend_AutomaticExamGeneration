@@ -36,6 +36,9 @@ namespace Application.Services
         {
             return await _teachRepository.GetAssignmentsByProfessorIdAsync(professorId);
         }
-
+        public async Task<IEnumerable<Professor>> GetProfessorsByAssignmentIdAsync(int assignmentId)
+        {
+            return await _teachRepository.GetProfessorsByAssignmentIdAsync(assignmentId);
+        }
     }
 }

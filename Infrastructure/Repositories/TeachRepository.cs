@@ -59,5 +59,13 @@ namespace Infrastructure.Repositories
                                  })
                                  .ToListAsync();
         }
+
+        public async Task<IEnumerable<Professor>> GetProfessorsByAssignmentIdAsync(int assignmentId)
+        {
+            return await _context.Teach
+                .Where(t => t.AssignmentId == assignmentId)
+                .Select(t => t.Professor)
+                .ToListAsync();
+        }
     }
 }

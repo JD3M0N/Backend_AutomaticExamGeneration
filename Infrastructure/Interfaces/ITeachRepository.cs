@@ -11,5 +11,6 @@ namespace Infrastructure.Interfaces
         Task AddTeachAsync(Teach teach);
         Task DeleteTeachAsync(int id);
         Task<IEnumerable<TeachDto>> GetAssignmentsByProfessorIdAsync(int professorId);
+        Task<IEnumerable<Professor>> GetProfessorsByAssignmentIdAsync(int assignmentId);
     }
 }
