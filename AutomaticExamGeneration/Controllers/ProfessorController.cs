@@ -128,5 +128,23 @@ namespace WebAPI.Controllers
             return Ok(exams);
         }
 
+        [HttpGet("{professorId}/reviewable-exams")]
+        public async Task<IActionResult> GetReviewableExams(int professorId)
+        {
+            var exams = await _professorService.GetReviewableExamsAsync(professorId);
+
+            if (exams == null || !exams.Any())
+            {
+                // Write to the console that there are no exams available for review
+                Console.WriteLine("No hay exámenes disponibles para revisión.");
+
+                return NotFound(new { message = "No hay exámenes disponibles para revisión." });
+            }
+
+            // Write to the console how many exams this professor id can review
+            Console.WriteLine($"Professor with ID {professorId} can review {exams.Count()} exams.");
+
+            return Ok(exams);
+        }
     }
 }

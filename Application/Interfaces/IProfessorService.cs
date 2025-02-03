@@ -13,6 +13,6 @@ namespace Application.Interfaces
         Task DeleteProfessorAsync(int id);
         Task<Professor> GetProfessorByEmailAsync(string email);
         Task<IEnumerable<Exam>> GetUnvalidatedExamsByProfessorIdAsync(int professorId);
-
+        Task<IEnumerable<Exam>> GetReviewableExamsAsync(int professorId);
     }
 }
