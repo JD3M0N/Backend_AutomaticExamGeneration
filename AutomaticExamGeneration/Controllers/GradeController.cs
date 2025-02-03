@@ -112,5 +112,24 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
+        [HttpGet("student/{studentId}/assignment/{assignmentId}/grades")]
+        public async Task<IActionResult> GetStudentGradesByAssignment(int studentId, int assignmentId)
+        {
+            var result = await _gradeService.GetStudentGradesByAssignmentAsync(studentId, assignmentId);
+
+            if (result.Count == 0)
+            {
+                // Write to the console the message
+                System.Console.WriteLine("El estudiante no tiene exámenes calificados en esta asignatura");
+
+                return NotFound(new { message = "El estudiante no tiene exámenes calificados en esta asignatura" });
+            }
+
+            // Write to the console the student ID, the assignment ID and the number of grades
+            System.Console.WriteLine($"Student ID: {studentId}, Assignment ID: {assignmentId}, Grades: {result.Count}");
+
+            return Ok(result);
+        }
+
     }
 }

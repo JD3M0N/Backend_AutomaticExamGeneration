@@ -109,5 +109,42 @@ namespace Infrastructure.Repositories
             return gradedExams;
         }
 
+        public async Task<List<object>> GetStudentGradesByAssignmentAsync(int studentId, int assignmentId)
+        {
+            // Buscar los exámenes de la asignatura en los que el estudiante tiene calificaciones
+            var examIds = await _context.Grades
+                .Where(g => g.StudentId == studentId && _context.Exam.Any(e => e.Id == g.ExamId && e.AssignmentId == assignmentId))
+                .Select(g => g.ExamId)
+                .Distinct()
+                .ToListAsync();
+
+            if (!examIds.Any())
+                return new List<object> { new { message = "El estudiante no tiene exámenes calificados en esta asignatura" } };
+
+            var gradedExams = new List<object>();
+
+            foreach (var examId in examIds)
+            {
+                var grades = await _context.Grades
+                    .Where(g => g.StudentId == studentId && g.ExamId == examId)
+                    .ToListAsync();
+
+                var totalScore = grades.Sum(g => g.GradeValue);
+                var totalQuestions = await _context.Belong.CountAsync(b => b.ExamId == examId);
+
+                if (totalQuestions == 0)
+                    continue; // Evita incluir exámenes sin preguntas
+
+                double finalGrade = (double)totalScore / totalQuestions;
+                gradedExams.Add(new
+                {
+                    ExamId = examId,
+                    Grade = finalGrade.ToString("F2") // Formato con dos decimales
+                });
+            }
+
+            return gradedExams;
+        }
+
     }
 }

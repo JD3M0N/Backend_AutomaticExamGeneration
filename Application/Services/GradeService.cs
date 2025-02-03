@@ -89,5 +89,10 @@ namespace Application.Services
             return await _gradeRepository.GetStudentGradedExamsAsync(studentId);
         }
 
+        public async Task<List<object>> GetStudentGradesByAssignmentAsync(int studentId, int assignmentId)
+        {
+            return await _gradeRepository.GetStudentGradesByAssignmentAsync(studentId, assignmentId);
+        }
+
     }
 }
