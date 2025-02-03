@@ -15,5 +15,6 @@ namespace Infrastructure.Interfaces
         Task<bool> IsHeadOfAssignmentAsync(int professorId);
         Task<IEnumerable<Exam>> GetUnvalidatedExamsByProfessorIdAsync(int professorId);
         Task<IEnumerable<Exam>> GetReviewableExamsAsync(int professorId);
+        Task<IEnumerable<Exam>> GetRequestedRegradesAsync(int professorId);
     }
 }

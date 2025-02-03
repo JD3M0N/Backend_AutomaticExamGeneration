@@ -73,5 +73,12 @@ namespace Infrastructure.Repositories
                             _context.Teach.Any(t => t.ProfessorId == professorId && t.AssignmentId == e.AssignmentId))
                 .ToListAsync();
         }
+        public async Task<IEnumerable<Exam>> GetRequestedRegradesAsync(int professorId)
+        {
+            return await _context.Exam
+                .Where(e => _context.RequestRegrade.Any(rg => rg.ExamId == e.Id && rg.ProfessorId == professorId) &&
+                            !_context.Regrades.Any(r => r.ExamId == e.Id))
+                .ToListAsync();
+        }
     }
 }

@@ -53,5 +53,10 @@ namespace Application.Services
         {
             return await _professorRepository.GetReviewableExamsAsync(professorId);
         }
+
+        public async Task<IEnumerable<Exam>> GetRequestedRegradesAsync(int professorId)
+        {
+            return await _professorRepository.GetRequestedRegradesAsync(professorId);
+        }
     }
 }

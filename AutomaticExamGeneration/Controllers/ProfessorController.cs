@@ -146,5 +146,24 @@ namespace WebAPI.Controllers
 
             return Ok(exams);
         }
+
+        [HttpGet("{professorId}/requested-regrades")]
+        public async Task<IActionResult> GetRequestedRegrades(int professorId)
+        {
+            var exams = await _professorService.GetRequestedRegradesAsync(professorId);
+
+            if (exams == null || !exams.Any())
+            {
+                // Write to the console that there are no regrades available
+                Console.WriteLine("No hay solicitudes de recalificación pendientes.");
+
+                return NotFound(new { message = "No hay solicitudes de recalificación pendientes." });
+            }
+
+            // Write to the console how many regrades this professor id can review
+            Console.WriteLine($"Professor with ID {professorId} can review {exams.Count()} regrades.");
+
+            return Ok(exams);
+        }
     }
 }
