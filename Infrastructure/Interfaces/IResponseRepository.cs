@@ -14,5 +14,6 @@ namespace Infrastructure.Interfaces
         Task AddResponseAsync(Response response);
         Task UpdateResponseAsync(Response response);
         Task DeleteResponseAsync(int id);
+        Task<IEnumerable<Response>> GetResponsesByExamAndStudentAsync(int examId, int studentId); // Nuevo método
     }
 }

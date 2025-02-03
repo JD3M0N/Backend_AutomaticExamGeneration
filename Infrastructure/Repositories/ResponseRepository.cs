@@ -49,5 +49,12 @@ namespace Infrastructure.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<IEnumerable<Response>> GetResponsesByExamAndStudentAsync(int examId, int studentId)
+        {
+            return await _context.Response
+                .Where(r => r.ExamId == examId && r.StudentId == studentId)
+                .ToListAsync();
+        }
     }
 }

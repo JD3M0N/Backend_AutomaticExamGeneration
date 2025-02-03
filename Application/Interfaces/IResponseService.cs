@@ -15,5 +15,6 @@ namespace Application.Interfaces
         Task AddResponseAsync(ResponseDto responseDto);
         Task UpdateResponseAsync(int id, ResponseDto responseDto);
         Task DeleteResponseAsync(int id);
+        Task<IEnumerable<ResponseDto>> GetResponsesByExamAndStudentAsync(int examId, int studentId); // Nuevo método
     }
 }

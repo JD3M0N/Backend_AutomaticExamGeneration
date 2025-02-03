@@ -77,5 +77,17 @@ namespace Application.Services
         {
             await _responseRepository.DeleteResponseAsync(id);
         }
+
+        public async Task<IEnumerable<ResponseDto>> GetResponsesByExamAndStudentAsync(int examId, int studentId)
+        {
+            var responses = await _responseRepository.GetResponsesByExamAndStudentAsync(examId, studentId);
+            return responses.Select(r => new ResponseDto
+            {
+                StudentId = r.StudentId,
+                QuestionId = r.QuestionId,
+                ExamId = r.ExamId,
+                Answer = r.Answer
+            });
+        }
     }
 }

@@ -70,5 +70,18 @@ namespace WebAPI.Controllers
             Console.WriteLine($"Response deleted: {id}");
             return Ok();
         }
+
+        [HttpGet("exam/{examId}/student/{studentId}")]
+        public async Task<ActionResult<IEnumerable<ResponseDto>>> GetResponsesByExamAndStudent(int examId, int studentId)
+        {
+            var responses = await _responseService.GetResponsesByExamAndStudentAsync(examId, studentId);
+            if (responses == null || !responses.Any())
+                return NotFound();
+
+            // Write in console the number of responses found
+            Console.WriteLine($"Number of responses for exam {examId} and student {studentId}: {responses.Count()}");
+
+            return Ok(responses);
+        }
     }
 }
