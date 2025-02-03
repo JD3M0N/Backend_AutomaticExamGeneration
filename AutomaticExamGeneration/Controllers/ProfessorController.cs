@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Dtos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebAPI.Controllers
 {
@@ -131,13 +132,12 @@ namespace WebAPI.Controllers
         [HttpGet("{professorId}/reviewable-exams")]
         public async Task<IActionResult> GetReviewableExams(int professorId)
         {
-            var exams = await _professorService.GetReviewableExamsAsync(professorId);
+            var exams = await _professorService.GetReviewableExamsWithStudentsAsync(professorId);
 
             if (exams == null || !exams.Any())
             {
                 // Write to the console that there are no exams available for review
                 Console.WriteLine("No hay exámenes disponibles para revisión.");
-
                 return NotFound(new { message = "No hay exámenes disponibles para revisión." });
             }
 

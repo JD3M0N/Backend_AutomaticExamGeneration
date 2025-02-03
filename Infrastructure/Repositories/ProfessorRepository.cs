@@ -65,12 +65,17 @@ namespace Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Exam>> GetReviewableExamsAsync(int professorId)
+        public async Task<IEnumerable<object>> GetReviewableExamsWithStudentsAsync(int professorId)
         {
             return await _context.Exam
                 .Where(e => _context.Response.Any(r => r.ExamId == e.Id) &&
                             !_context.Grades.Any(g => g.ExamId == e.Id) &&
                             _context.Teach.Any(t => t.ProfessorId == professorId && t.AssignmentId == e.AssignmentId))
+                .Select(e => new
+                {
+                    ExamId = e.Id,
+                    StudentId = _context.Response.Where(r => r.ExamId == e.Id).Select(r => r.StudentId).FirstOrDefault()
+                })
                 .ToListAsync();
         }
         public async Task<IEnumerable<Exam>> GetRequestedRegradesAsync(int professorId)
