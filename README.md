@@ -1,4 +1,4 @@
-# Project Name
+# Automatic Exam Generation
 
 ## Overview
 
